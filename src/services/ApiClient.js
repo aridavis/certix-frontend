@@ -46,9 +46,8 @@ Axios.interceptors.response.use(
       } else {
         Swal.fire("Error", ex.toString(), "error");
       }
-
-      return Promise.reject(error);
     }
+    return Promise.reject(error);
   }
 );
 

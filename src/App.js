@@ -10,6 +10,7 @@ import { green, red, teal } from "@material-ui/core/colors";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import ApplySeller from "./components/apply-seller/ApplySeller";
 
 const theme = createMuiTheme({
   palette: {
@@ -33,6 +34,9 @@ function App() {
             <LoggedInRoute exact path="/history" Component={History} />
             <NotLoggedInRoute exact path="/register" Component={Register} />
             <NotLoggedInRoute exact path="/login" Component={Login} />
+            <Route exact path="/apply-seller">
+              <ApplySeller></ApplySeller>
+            </Route>
           </Switch>
         </Router>
       </ThemeProvider>

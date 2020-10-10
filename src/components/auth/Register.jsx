@@ -22,7 +22,7 @@ import Swal from "sweetalert2";
 
 const moment = require("moment");
 
-export class Login extends Component {
+export class Register extends Component {
   state = {
     email: "",
     name: "",
@@ -231,4 +231,4 @@ const fields = [
   }),
 ];
 
-export default withStyles(useStyles)(Login);
+export default withStyles(useStyles)(Register);
