@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,6 +10,13 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControl from '@material-ui/core/FormControl'
+import FormLabel from '@material-ui/core/FormLabel'
+import FormControlLabel from '@material-ui/core/FormcontrolLabel'
+import ApiClient from '../../services/ApiClient'
+import { useHistory } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -53,6 +60,29 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Register() {
   const classes = useStyles();
+  const [data, setData] = useState({
+    name: '',
+    phone_number: '',
+    dob: '',
+    gender: '',
+    email: '',
+    password: '',
+    confirmation_password: ''
+  })
+  const history = useHistory()
+
+  function onChange(e) {
+    setData({...data, [e.target.name]: e.target.value})
+  }
+
+  function onSubmit(e) {
+    e.preventDefault()
+
+    ApiClient.Post('/users/register', data)
+    .then(res => {
+      history.push('/login')
+    })
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -64,7 +94,48 @@ export default function Register() {
         <Typography component="h1" variant="h5">
           Register
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate  onSubmit={onSubmit}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="name"
+            label="Full Name"
+            name="name"
+            autoComplete="name"
+            onChange={onChange}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="phone-number"
+            label="Phone Number"
+            name="phone_number"
+            autoComplete="phone-number"
+            onChange={onChange}
+          />
+          <FormLabel component="legend">Date of Birth</FormLabel>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="dob"
+            name="dob"
+            autoComplete="dob"
+            type="date"
+            onChange={onChange}
+          />
+          <FormControl component="fieldset">
+            <FormLabel component="legend">Gender</FormLabel>
+            <RadioGroup aria-label="gender" name="gender" onChange={onChange}>
+                <FormControlLabel value="F" control={<Radio />} label="Female" />
+                <FormControlLabel value="M" control={<Radio />} label="Male" />
+            </RadioGroup>
+        </FormControl>
           <TextField
             variant="outlined"
             margin="normal"
@@ -75,6 +146,7 @@ export default function Register() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={onChange}
           />
           <TextField
             variant="outlined"
@@ -86,6 +158,19 @@ export default function Register() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={onChange}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="confirmation_password"
+            label="confirmation Password"
+            type="password"
+            id="confirmation-password"
+            autoComplete="confirmation-password"
+            onChange={onChange}
           />
           <Button
             type="submit"
@@ -97,8 +182,8 @@ export default function Register() {
             Register
           </Button>
           <Grid container className={classes.button}>
-            <Link href="#" variant="body2">
-              {"Already have an account? Sign In"}
+            <Link href="/login" variant="body2">
+              {"Already have an account? Login"}
             </Link>
           </Grid>
         </form>

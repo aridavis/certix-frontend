@@ -13,6 +13,7 @@ import Container from '@material-ui/core/Container';
 import ApiClient from '../../services/ApiClient'
 import { useCookies } from 'react-cookie'
 import { useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function Copyright() {
   return (
@@ -75,6 +76,13 @@ export default function Login() {
       setCookie('ACCESS_TOKEN', res.data.access_token)
       history.push('/')
     })
+    .catch((err) => {
+      Swal.fire(
+        "Not Authorized",
+        "Username / Passsword is Invalid.",
+        "warning"
+      );
+    });
     // console.log('asd')
     // console.log(process.env.REACT_APP_BACKEND_URL)
     // axios({
@@ -134,8 +142,8 @@ export default function Login() {
             Sign In
           </Button>
           <Grid container className={classes.button}>
-            <Link href="#" variant="body2">
-              {"Don't have an account? Sign Up"}
+            <Link href="/register" variant="body2">
+              {"Don't have an account? Register"}
             </Link>
           </Grid>
         </form>
