@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Redirect } from "react-router-dom";
 import { useCookies } from 'react-cookie'
 
-function NotLoggedInRoute({Component, ...rest}) {
+function LoggedInRoute({Component, ...rest}) {
     const [cookies, setCookie] = useCookies(["ACCESS_TOKEN"])
 
     function getRedirected() {
@@ -11,9 +11,9 @@ function NotLoggedInRoute({Component, ...rest}) {
 
     return (
         <Route {...rest} render={(props) => (
-            !cookies.ACCESS_TOKEN ? <Component {...props}/> : getRedirected()
+            cookies.ACCESS_TOKEN ? <Component {...props}/> : getRedirected()
         )}/>
     )
 }
 
-export default NotLoggedInRoute
+export default LoggedInRoute

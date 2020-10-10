@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -12,6 +10,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import ApiClient from '../../services/ApiClient'
+import { useCookies } from 'react-cookie'
+import { useHistory } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -54,6 +55,38 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
+  const [data, setData] = useState({
+    email: '',
+    password: ''
+  })
+  
+  const [cookies, setCookie] = useCookies(["ACCESS_TOKEN"])
+  const history = useHistory()
+
+  function onChange(e) {
+    setData({...data, [e.target.name]: e.target.value})
+  }
+
+  function login(e) {
+    e.preventDefault()
+
+    ApiClient.Post('/auth/login', data)
+    .then(res => {
+      setCookie('ACCESS_TOKEN', res.data.access_token)
+      history.push('/')
+    })
+    // console.log('asd')
+    // console.log(process.env.REACT_APP_BACKEND_URL)
+    // axios({
+    //   url: process.env.REACT_APP_BACKEND_URL + "/auth/login",
+    //   method: "POST",
+    //   data
+    // })
+    // .then(res => {
+    //   console.log(res)
+    // })
+  }
+
   const classes = useStyles();
 
   return (
@@ -66,7 +99,7 @@ export default function Login() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={login}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -77,6 +110,7 @@ export default function Login() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={onChange}
           />
           <TextField
             variant="outlined"
@@ -88,6 +122,7 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={onChange}
           />
           <Button
             type="submit"
