@@ -11,6 +11,7 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import ApplyStreamer from "./components/apply-streamer/ApplyStreamer";
+import SellerSelling from "./components/seller/SellerSellingPage";
 
 const theme = createMuiTheme({
   palette: {
@@ -42,6 +43,7 @@ function App() {
               path="/apply-streamer"
               Component={ApplyStreamer}
             />
+            <LoggedInRoute exact path="/sellings" Component={SellerSelling} />
           </Switch>
         </Router>
       </ThemeProvider>
