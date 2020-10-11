@@ -1,6 +1,8 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Alternative from './Alternative'
+import videojs from 'video.js';
+import 'video.js/dist/video-js.css';
 
 const useStyles = makeStyles({
     streamVideo: {
@@ -16,13 +18,22 @@ const useStyles = makeStyles({
     }
 });
 
-function Video() {
+window.videojs = videojs;
+require('videojs-contrib-hls/dist/videojs-contrib-hls.js');
+
+function Video({ source }) {
     const classes = useStyles()
+
+    function startVideo(video) {
+        videojs(video)
+    }
 
     return (
         <>
-            <Alternative className={classes.streamVideo}/>
-            {/* <video className={classes.streamVideo}></video> */}
+            {/* <Alternative className={classes.streamVideo}/> */}
+            <video ref={startVideo} className={classes.streamVideo + 'video-js vjs-default-skin'} controls>
+                <source src={'https://rtmp.certix.suhanginta-hermanudin.xyz/' + source + '.m3u8'} type="application/x-mpegURL" />
+            </video>
         </>
     )
 }
