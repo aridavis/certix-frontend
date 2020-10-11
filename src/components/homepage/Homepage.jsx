@@ -1,32 +1,3 @@
-// import React, { useEffect } from 'react'
-// import Hls from "hls.js"
-
-// function Homepage() {
-//     useEffect(() => {
-//         if (Hls.isSupported()) {
-//             var video = document.getElementById('video');
-//             var videoSrc = 'https://rtmp.certix.suhanginta-hermanudin.xyz/test.m3u8';
-//             if (Hls.isSupported()) {
-//               var hls = new Hls();
-//               hls.loadSource(videoSrc);
-//               hls.attachMedia(video);
-//               hls.on(Hls.Events.MANIFEST_PARSED, function () {
-//                 video.play();
-//               });
-//             }
-
-//           }
-//     }, []);
-
-//     return (
-//         <div>
-//             <video id="video"></video>
-//         </div>
-//     )
-// }
-
-// export default Homepage
-
 import React, { Component } from "react";
 import {
   Button,
@@ -37,8 +8,17 @@ import {
 } from "@material-ui/core";
 import HomepageHeader from "./header/HomepageHeader";
 import { ItemContainer } from "./item/ItemContainer";
+import ApiClient from "../../services/ApiClient";
+import Axios from "axios";
 
 export class Homepage extends Component {
+  state = {
+    topConcerts: [],
+    concerts: [],
+    topStreamers: [],
+    streamers: [],
+  };
+
   renderTitle = (name) => (
     <Grid
       container
@@ -67,6 +47,30 @@ export class Homepage extends Component {
     );
   };
 
+  componentWillMount() {
+    Axios.get(process.env.REACT_APP_API_URL + "/homepage").then((res) => {
+      console.log(res.data);
+      this.setState({
+        topStreamers: res.data.top_sellers,
+        topConcerts: res.data.top_concerts,
+        streamers: res.data.sellers,
+        concerts: res.data.concerts,
+      });
+    });
+  }
+
+  mapStateToConcert = (arr) => {
+    const data = arr.map((res) =>
+      createConcertData(res.id, res.name, res.seller.name, res.price)
+    );
+    return data;
+  };
+
+  mapStateToStreamer = (arr) => {
+    const data = arr.map((res) => createStreamerData(res.id, res.name));
+    return data;
+  };
+
   render() {
     const { classes } = this.props;
 
@@ -77,22 +81,22 @@ export class Homepage extends Component {
           {this.renderDataContainer(
             "Bestselling Concert",
             "concert",
-            concertData.slice(0, 5)
+            this.mapStateToConcert(this.state.topConcerts)
           )}
           {this.renderDataContainer(
             "Find Out Other Concert",
             "concert",
-            concertData
+            this.mapStateToConcert(this.state.concerts)
           )}
           {this.renderDataContainer(
             "Top Streamer",
             "streamer",
-            streamerData.slice(0, 5)
+            this.mapStateToStreamer(this.state.topStreamers)
           )}
           {this.renderDataContainer(
             "Find Out Other Streamer",
             "streamer",
-            streamerData
+            this.mapStateToStreamer(this.state.streamers)
           )}
         </Container>
       </div>
@@ -100,39 +104,12 @@ export class Homepage extends Component {
   }
 }
 
-const createStreamerData = (name, rating) => {
-  return { name: name, rating: rating };
+const createConcertData = (id, name, streamer, price) => {
+  return { id: id, name: name, streamer: streamer, price: price };
 };
-
-const streamerData = [
-  createStreamerData("Poco poco", "3.0"),
-  createStreamerData("Ayam Goreng", "3.0"),
-  createStreamerData("Meong", "3.0"),
-  createStreamerData("Cicak", "3.0"),
-  createStreamerData("Hallo Bandung", "3.0"),
-  createStreamerData("Poco poco", "3.0"),
-  createStreamerData("Ayam Goreng", "3.0"),
-  createStreamerData("Meong", "3.0"),
-  createStreamerData("Cicak", "3.0"),
-  createStreamerData("Hallo Bandung", "3.0"),
-];
-
-const createConcertData = (name, streamer, price) => {
-  return { name: name, streamer: streamer, price: price };
+const createStreamerData = (id, name) => {
+  return { id: id, name: name };
 };
-
-const concertData = [
-  createConcertData("Poco poco", "Ari", 50000),
-  createConcertData("Ayam Goreng", "Ari", 50000),
-  createConcertData("Meong", "Ari", 50000),
-  createConcertData("Cicak", "Ari", 50000),
-  createConcertData("Hallo Bandung", "Ari", 50000),
-  createConcertData("Poco poco", "Ari", 50000),
-  createConcertData("Ayam Goreng", "Ari", 50000),
-  createConcertData("Meong", "Ari", 50000),
-  createConcertData("Cicak", "Ari", 50000),
-  createConcertData("Hallo Bandung", "Ari", 50000),
-];
 
 const useStyles = (theme) => ({
   title: {

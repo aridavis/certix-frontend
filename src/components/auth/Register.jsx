@@ -49,7 +49,6 @@ export class Register extends Component {
     e.preventDefault();
     Axios.post(process.env.REACT_APP_API_URL + "/users/register", this.state)
       .then((res) => {
-        console.log(res.status);
         window.location.href = "/login";
       })
       .catch((error) => {
@@ -102,7 +101,6 @@ export class Register extends Component {
   );
 
   renderInput = (data) => {
-    console.log(data);
     if (data.type === "date") {
       return this.renderDatePicker(data);
     } else if (data.type === "select") {

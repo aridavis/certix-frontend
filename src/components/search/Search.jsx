@@ -33,8 +33,16 @@ export class Search extends Component {
             <Tab label="Concert" />
           </Tabs>
         </AppBar>
-        {this.state.value === 0 && <SearchStreamer />}
-        {this.state.value === 1 && <SearchConcert />}
+        {this.state.value === 0 && (
+          <SearchStreamer
+            keyword={queryString.parse(this.props.location.search).keyword}
+          />
+        )}
+        {this.state.value === 1 && (
+          <SearchConcert
+            keyword={queryString.parse(this.props.location.search).keyword}
+          />
+        )}
       </React.Fragment>
     );
   }

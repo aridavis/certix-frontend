@@ -1,8 +1,22 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core";
 import { ItemContainer } from "../homepage/item/ItemContainer";
+import Streamer from "../../models/Streamer";
+import queryString from "query-string";
 
 export class SearchStreamer extends Component {
+  state = {
+    streamers: [],
+  };
+
+  componentWillMount() {
+    Streamer.Get(this.props.keyword).then((res) => {
+      this.setState({
+        streamers: res.data,
+      });
+    });
+  }
+
   renderDataContainer = (title, type, data) => {
     return (
       <div className={this.props.classes.dataContainer}>
@@ -12,28 +26,19 @@ export class SearchStreamer extends Component {
   };
 
   render() {
+    const data = this.state.streamers.map((res) =>
+      createStreamerData(res.id, res.name)
+    );
+
     const { classes } = this.props;
 
-    return <div>{this.renderDataContainer("", "streamer", streamerData)}</div>;
+    return <div>{this.renderDataContainer("", "streamer", data)}</div>;
   }
 }
 
-const createStreamerData = (name, rating) => {
-  return { name: name, rating: rating };
+const createStreamerData = (id, name) => {
+  return { id: id, name: name };
 };
-
-const streamerData = [
-  createStreamerData("Poco poco", "3.0"),
-  createStreamerData("Ayam Goreng", "3.0"),
-  createStreamerData("Meong", "3.0"),
-  createStreamerData("Cicak", "3.0"),
-  createStreamerData("Hallo Bandung", "3.0"),
-  createStreamerData("Poco poco", "3.0"),
-  createStreamerData("Ayam Goreng", "3.0"),
-  createStreamerData("Meong", "3.0"),
-  createStreamerData("Cicak", "3.0"),
-  createStreamerData("Hallo Bandung", "3.0"),
-];
 
 const useStyles = (theme) => ({
   dataContainer: {

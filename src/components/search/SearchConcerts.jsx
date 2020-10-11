@@ -1,8 +1,22 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core";
 import { ItemContainer } from "../homepage/item/ItemContainer";
+import Concert from "../../models/Concert";
+import queryString from "query-string";
 
-export class SearchConcert extends Component {
+export class SearchConcerts extends Component {
+  state = {
+    streamers: [],
+  };
+
+  componentWillMount() {
+    Concert.Get(this.props.keyword).then((res) => {
+      this.setState({
+        streamers: res.data,
+      });
+    });
+  }
+
   renderDataContainer = (title, type, data) => {
     return (
       <div className={this.props.classes.dataContainer}>
@@ -12,62 +26,23 @@ export class SearchConcert extends Component {
   };
 
   render() {
+    const data = this.state.streamers.map((res) =>
+      createConcertData(res.id, res.name, res.seller.name, res.price)
+    );
+
     const { classes } = this.props;
 
-    return <div>{this.renderDataContainer("", "concert", concertData)}</div>;
+    return <div>{this.renderDataContainer("", "concert", data)}</div>;
   }
 }
 
-const createConcertData = (name, streamer, price) => {
-  return { name: name, streamer: streamer, price: price };
+const createConcertData = (id, name, streamer, price) => {
+  return { id: id, name: name, streamer: streamer, price: price };
 };
-
-const concertData = [
-  createConcertData("Poco poco", "Ari", 50000),
-  createConcertData("Ayam Goreng", "Ari", 50000),
-  createConcertData("Meong", "Ari", 50000),
-  createConcertData("Cicak", "Ari", 50000),
-  createConcertData("Hallo Bandung", "Ari", 50000),
-  createConcertData("Poco poco", "Ari", 50000),
-  createConcertData("Ayam Goreng", "Ari", 50000),
-  createConcertData("Meong", "Ari", 50000),
-  createConcertData("Cicak", "Ari", 50000),
-  createConcertData("Hallo Bandung", "Ari", 50000),
-  createConcertData("Poco poco", "Ari", 50000),
-  createConcertData("Ayam Goreng", "Ari", 50000),
-  createConcertData("Meong", "Ari", 50000),
-  createConcertData("Cicak", "Ari", 50000),
-  createConcertData("Hallo Bandung", "Ari", 50000),
-  createConcertData("Poco poco", "Ari", 50000),
-  createConcertData("Ayam Goreng", "Ari", 50000),
-  createConcertData("Meong", "Ari", 50000),
-  createConcertData("Cicak", "Ari", 50000),
-  createConcertData("Hallo Bandung", "Ari", 50000),
-  createConcertData("Poco poco", "Ari", 50000),
-  createConcertData("Ayam Goreng", "Ari", 50000),
-  createConcertData("Meong", "Ari", 50000),
-  createConcertData("Cicak", "Ari", 50000),
-  createConcertData("Hallo Bandung", "Ari", 50000),
-  createConcertData("Poco poco", "Ari", 50000),
-  createConcertData("Ayam Goreng", "Ari", 50000),
-  createConcertData("Meong", "Ari", 50000),
-  createConcertData("Cicak", "Ari", 50000),
-  createConcertData("Hallo Bandung", "Ari", 50000),
-  createConcertData("Poco poco", "Ari", 50000),
-  createConcertData("Ayam Goreng", "Ari", 50000),
-  createConcertData("Meong", "Ari", 50000),
-  createConcertData("Cicak", "Ari", 50000),
-  createConcertData("Hallo Bandung", "Ari", 50000),
-  createConcertData("Poco poco", "Ari", 50000),
-  createConcertData("Ayam Goreng", "Ari", 50000),
-  createConcertData("Meong", "Ari", 50000),
-  createConcertData("Cicak", "Ari", 50000),
-  createConcertData("Hallo Bandung", "Ari", 50000),
-];
 
 const useStyles = (theme) => ({
   dataContainer: {
     margin: theme.spacing(5),
   },
 });
-export default withStyles(useStyles)(SearchConcert);
+export default withStyles(useStyles)(SearchConcerts);
