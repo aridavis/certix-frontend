@@ -69,7 +69,7 @@ function onClick(token) {
 
   Swal.fire({
     title: "Token copied to clipboard",
-    html: `Your token is:<br/><strong>${token}</strong><br>DO NOT show this token(s) to strangers!`,
+    html: `Your token is:<br/><strong>${token}</strong><br>DO <strong>NOT</strong> show this token( to strangers!`,
     timer: 2000,
   });
 }

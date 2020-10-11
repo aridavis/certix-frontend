@@ -1,17 +1,17 @@
 import Swal from "sweetalert2";
 
-const { default: Axios } = require("axios");
-
+const Axios = require("axios");
+const client = Axios.create()
 const API_URL = process.env.REACT_APP_API_URL;
 const cookie = require("react-cookies");
-Axios.interceptors.request.use(function (config) {
+client.interceptors.request.use(function (config) {
   const token = "Bearer " + cookie.load("ACCESS_TOKEN");
   config.headers.Authorization = token;
 
   return config;
 });
 
-Axios.interceptors.response.use(
+client.interceptors.response.use(
   function (response) {
     return response;
   },
@@ -53,21 +53,21 @@ Axios.interceptors.response.use(
 
 class ApiClient {
   static Get = (url, params) => {
-    return Axios.get(API_URL + url, {
+    return client.get(API_URL + url, {
       params: params,
     });
   };
 
   static Post = (url, body) => {
-    return Axios.post(API_URL + url, body);
+    return client.post(API_URL + url, body);
   };
 
   static Put = (url, body) => {
-    return Axios.put(API_URL + url, body);
+    return client.put(API_URL + url, body);
   };
 
   static Delete = (url) => {
-    return Axios.delete(API_URL + url);
+    return client.delete(API_URL + url);
   };
 }
 

@@ -81,7 +81,7 @@ function getReferral(referral_id) {
   
     Swal.fire({
       title: 'Referral code copied to clipboard',
-      html: `Your referral code is: <strong>${referral_id}</strong><br>DO NOT show this code to strangers!`,
+      html: `Your referral code is: <strong>${referral_id}</strong><br>Share this to other people to get <strong>FREE</strong> ticket!`,
       timer: 2000,
     })
 }

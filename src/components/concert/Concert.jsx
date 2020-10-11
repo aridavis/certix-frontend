@@ -11,6 +11,10 @@ import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import Referral from "../../models/Referral";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router";
+import Axios from 'axios'
+import cookie from 'react-cookies'
+import Colors from '../../theme/colors'
+import User from '../../models/User';
 
 const useStyles = makeStyles({
     detailContainer: {
@@ -42,6 +46,10 @@ function Concert({ match }) {
     const classes = useStyles()
     const [concert, setConcert] = useState(null)
     const [quantity, setQuantity] = useState(1)
+    const [code, setCode] = useState('')
+    const [error, setError] = useState('')
+    const [success, setSuccess] = useState('')
+    const [acceptedCode, setAcceptedCode] = useState(null)
     const history = useHistory()
 
     useEffect(() => {
@@ -84,6 +92,51 @@ function Concert({ match }) {
         })
     }
 
+    function checkReferral() {
+        const token = "Bearer " + cookie.load("ACCESS_TOKEN");
+        Axios.get(process.env.REACT_APP_API_URL + '/referral/use', {
+            params: {
+                concert_id: concert.id,
+                referral_id: code
+            },
+            headers: {
+                Authorization: token
+            }
+        })
+        .then(res => {
+            setError('')
+            setSuccess(`Referral code ${res.data.id} has been applied`)
+            setAcceptedCode(res.data.id)
+        })
+        .catch(err => {
+            setError(err.response.data.message.error)
+            setSuccess('')
+        })
+    }
+
+    function getFinalPrice() {
+        let p = concert.price * quantity
+        let discount = 0
+
+        if (acceptedCode) {
+            discount = p * 0.2
+            if (discount > 50000) {
+                discount = 50000
+            }
+        }
+
+        return p - discount
+    }
+
+    function buyTicket() {
+        User.Wallet().then((res) => {
+            const balance = res.data.balance
+            if (balance < getFinalPrice()) {
+                Swal.fire("Insufficient balance", "", "warning")
+            }
+        });
+    }
+
     return (
         <div >
             <Header />
@@ -95,20 +148,25 @@ function Concert({ match }) {
                         <Button variant="contained" color="primary" style={{ marginLeft: 20, color: 'white' }} onClick={shareReferral}>Share Referral Code</Button>
                     </div>
                     <Box className={classes.innerContainer}>
-                        <div style={{flex: 1}}>
+                        <div style={{flex: 2}}>
                             <Typography variant="h5" className={classes.concertDetail}><EventIcon className={classes.icon} /> {concert.start_time}</Typography>
                             <Typography variant="h5" className={classes.concertDetail}><AlbumIcon className={classes.icon} /> {concert.genre.name}</Typography>
                         </div>
-                        <div style={{flex: 1}}>
+                        <div style={{flex: 2}}>
                             <Typography variant="h5" className={classes.concertDetail}>Individual: Rp. {concert.price}</Typography>
                             <Typography variant="h5" className={classes.concertDetail}>Quantity: <RemoveCircleIcon className={classes.icon} onClick={() => changeQuantity(-1)} /> { quantity } <AddCircleIcon className={classes.icon} onClick={() => changeQuantity(1)} /> </Typography>
                         </div>
-                        <div style={{flex: 1}}>
-                            <Typography variant="h5" className={classes.concertDetail}>Total: Rp. { quantity * concert.price }</Typography>
+                        <div style={{flex: 2}}>
+                            <Typography variant="h5" className={classes.concertDetail}>Total: Rp. { getFinalPrice() }</Typography>
                             <div className={classes.referralContainer}>
-                                <TextField id="filled-basic" label="Enter referral code (if any)" variant="outlined" style={{marginRight: '5px'}}/>
-                                <Button variant="contained">Check</Button>
+                                <TextField id="filled-basic" label="Enter referral code (if any)" variant="outlined" style={{marginRight: '5px'}} onChange={(e) => setCode(e.target.value)}/>
+                                <Button variant="contained" onClick={checkReferral} style={{marginLeft: 20}}>Apply</Button>
                             </div>
+                            <Typography style={{color: 'red'}} fontWeight="fontWeightBold" className={classes.concertDetail}>{ error }</Typography>
+                            <Typography style={{color: Colors.lightGreen}} fontWeight="fontWeightBold" className={classes.concertDetail}>{ success }</Typography>
+                        </div>
+                        <div style={{flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'flex-start'}}>
+                            <Button variant="contained" color="primary" style={{ color: 'white', padding: '15px 30px' }} size="large" onClick={buyTicket}>Buy Ticket</Button>
                         </div>
                     </Box>
                 </Box>
