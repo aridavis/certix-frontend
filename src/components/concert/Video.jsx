@@ -84,7 +84,7 @@ function Video({ source, start_time, id }) {
                             timer: 1000
                         })
                         .then(() => {
-                            history.push('/')
+                            window.location = '/'
                         })
                     } 
                 })
