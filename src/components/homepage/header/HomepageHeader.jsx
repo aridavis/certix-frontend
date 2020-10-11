@@ -11,11 +11,13 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 
 import cookie from "react-cookies";
-import { Input, TextField } from "@material-ui/core";
+import { Input, SwipeableDrawer, TextField } from "@material-ui/core";
+import { NavigationDrawer } from "../../navigation-drawer/NavigationDrawer";
 export class HomepageHeader extends Component {
   state = {
     anchorEl: null,
     search: "",
+    drawerOpen: false,
   };
 
   handleMenu = (event) => {
@@ -41,16 +43,30 @@ export class HomepageHeader extends Component {
     window.location.href = "/search?keyword=" + this.state.search;
   };
 
+  toggleDrawer(value) {
+    this.setState({
+      drawerOpen: value,
+    });
+  }
+
   render() {
     const { classes } = this.props;
 
     return (
       <div className={classes.root}>
+        <NavigationDrawer
+          open={this.state.drawerOpen}
+          onClose={() => this.toggleDrawer(false)}
+          onOpen={() => this.toggleDrawer(true)}
+        />
         <AppBar position="static" className={classes.appBar}>
           <Toolbar>
             <IconButton
               className={classes.title}
               edge="start"
+              onClick={() => {
+                this.toggleDrawer(true);
+              }}
               className={classes.menuButton}
               color="inherit"
               aria-label="menu"
@@ -67,7 +83,7 @@ export class HomepageHeader extends Component {
                   aria-controls="menu-appbar"
                   aria-haspopup="true"
                   onClick={this.handleMenu}
-                  color="inherit"
+                  color="white"
                 >
                   <AccountCircle />
                 </IconButton>
@@ -93,6 +109,9 @@ export class HomepageHeader extends Component {
             )}
           </Toolbar>
           <Toolbar className={classes.contentToolbar}>
+            <Typography className={classes.title} variant="h1" gutterBottom>
+              CERTIX
+            </Typography>
             <Typography variant="h2" className={classes.helloBeauty}>
               Book Your Concert!
             </Typography>
