@@ -151,36 +151,38 @@ function Concert({ match }) {
     return (
         <div >
             <Header />
-            <Video />
             { concert && 
-                <Box className={classes.detailContainer} mx={20} my={5}>
-                    <div className={classes.nameContainer}>
-                        <Typography variant="h3" className={classes.concertDetail}>{concert.name}</Typography>
-                        <Button variant="contained" color="primary" style={{ marginLeft: 20, color: 'white' }} onClick={shareReferral}>Share Referral Code</Button>
-                    </div>
-                    <Box className={classes.innerContainer}>
-                        <div style={{flex: 2}}>
-                            <Typography variant="h5" className={classes.concertDetail}><EventIcon className={classes.icon} /> {concert.start_time}</Typography>
-                            <Typography variant="h5" className={classes.concertDetail}><AlbumIcon className={classes.icon} /> {concert.genre.name}</Typography>
+                <>
+                    <Video source={concert.stream_key} />
+                    <Box className={classes.detailContainer} mx={20} my={5}>
+                        <div className={classes.nameContainer}>
+                            <Typography variant="h3" className={classes.concertDetail}>{concert.name}</Typography>
+                            <Button variant="contained" color="primary" style={{ marginLeft: 20, color: 'white' }} onClick={shareReferral}>Share Referral Code</Button>
                         </div>
-                        <div style={{flex: 2}}>
-                            <Typography variant="h5" className={classes.concertDetail}>Individual: Rp. {concert.price}</Typography>
-                            <Typography variant="h5" className={classes.concertDetail}>Quantity: <RemoveCircleIcon className={classes.icon} onClick={() => changeQuantity(-1)} /> { quantity } <AddCircleIcon className={classes.icon} onClick={() => changeQuantity(1)} /> </Typography>
-                        </div>
-                        <div style={{flex: 2}}>
-                            <Typography variant="h5" className={classes.concertDetail}>Total: Rp. { getFinalPrice() }</Typography>
-                            <div className={classes.referralContainer}>
-                                <TextField id="filled-basic" label="Enter referral code (if any)" variant="outlined" style={{marginRight: '5px'}} onChange={(e) => setCode(e.target.value)}/>
-                                <Button variant="contained" onClick={checkReferral} style={{marginLeft: 20}}>Apply</Button>
+                        <Box className={classes.innerContainer}>
+                            <div style={{flex: 2}}>
+                                <Typography variant="h5" className={classes.concertDetail}><EventIcon className={classes.icon} /> {concert.start_time}</Typography>
+                                <Typography variant="h5" className={classes.concertDetail}><AlbumIcon className={classes.icon} /> {concert.genre.name}</Typography>
                             </div>
-                            <Typography style={{color: 'red'}} fontWeight="fontWeightBold" className={classes.concertDetail}>{ error }</Typography>
-                            <Typography style={{color: Colors.lightGreen}} fontWeight="fontWeightBold" className={classes.concertDetail}>{ success }</Typography>
-                        </div>
-                        <div style={{flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'flex-start'}}>
-                            <Button variant="contained" color="primary" style={{ color: 'white', padding: '15px 30px' }} size="large" onClick={buyTicket}>Buy Ticket</Button>
-                        </div>
+                            <div style={{flex: 2}}>
+                                <Typography variant="h5" className={classes.concertDetail}>Individual: Rp. {concert.price}</Typography>
+                                <Typography variant="h5" className={classes.concertDetail}>Quantity: <RemoveCircleIcon className={classes.icon} onClick={() => changeQuantity(-1)} /> { quantity } <AddCircleIcon className={classes.icon} onClick={() => changeQuantity(1)} /> </Typography>
+                            </div>
+                            <div style={{flex: 2}}>
+                                <Typography variant="h5" className={classes.concertDetail}>Total: Rp. { getFinalPrice() }</Typography>
+                                <div className={classes.referralContainer}>
+                                    <TextField id="filled-basic" label="Enter referral code (if any)" variant="outlined" style={{marginRight: '5px'}} onChange={(e) => setCode(e.target.value)}/>
+                                    <Button variant="contained" onClick={checkReferral} style={{marginLeft: 20}}>Apply</Button>
+                                </div>
+                                <Typography style={{color: 'red'}} fontWeight="fontWeightBold" className={classes.concertDetail}>{ error }</Typography>
+                                <Typography style={{color: Colors.lightGreen}} fontWeight="fontWeightBold" className={classes.concertDetail}>{ success }</Typography>
+                            </div>
+                            <div style={{flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'flex-start'}}>
+                                <Button variant="contained" color="primary" style={{ color: 'white', padding: '15px 30px' }} size="large" onClick={buyTicket}>Buy Ticket</Button>
+                            </div>
+                        </Box>
                     </Box>
-                </Box>
+                </>
             }
         </div>
     )
