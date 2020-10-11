@@ -10,6 +10,7 @@ export class Dashboard extends Component {
     average_ratings: 2.7,
     incoming_concert: 1,
     sold_ticket: 0,
+    total_engagement: 0,
     total_income: "0",
     popular_genres: [],
     profit_genre: [],
@@ -28,6 +29,7 @@ export class Dashboard extends Component {
         profit_genre: res.data.profit_genre,
         this_year_profit: res.data.this_year_profit,
         upcoming_sold_ticket: res.data.upcoming_sold_ticket,
+        total_engagement: res.data.total_engagement,
       });
     });
   }
@@ -43,6 +45,7 @@ export class Dashboard extends Component {
             average_ratings: this.state.average_ratings,
             incoming_concert: this.state.incoming_concert,
             sold_ticket: this.state.sold_ticket,
+            total_engagement: this.state.total_engagement,
             total_income: this.state.total_income
               .toString()
               .replace(/\B(?=(\d{3})+(?!\d))/g, "."),

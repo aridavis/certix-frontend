@@ -16,6 +16,8 @@ import cookie from "react-cookies";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import NavigationDrawer from "../navigation-drawer/NavigationDrawer";
 import User from "../../models/User";
+import Swal from "sweetalert2";
+import ApiClient from "../../services/ApiClient";
 
 export class HomepageHeader extends Component {
   state = {
@@ -55,6 +57,10 @@ export class HomepageHeader extends Component {
   }
 
   componentWillMount() {
+    this.refreshWallet();
+  }
+
+  refreshWallet = () => {
     cookie.load("ACCESS_TOKEN") != undefined &&
       User.Wallet().then((res) => {
         this.setState({
@@ -63,7 +69,7 @@ export class HomepageHeader extends Component {
             .replace(/\B(?=(\d{3})+(?!\d))/g, "."),
         });
       });
-  }
+  };
 
   logout = () => {
     User.Logout()
@@ -75,6 +81,31 @@ export class HomepageHeader extends Component {
         cookie.remove("ACCESS_TOKEN");
         window.location.href = "/login";
       });
+  };
+
+  addWallet = () => {
+    Swal.fire({
+      title: "Enter amount of cash",
+      input: "number",
+      inputAttributes: {
+        autocapitalize: "off",
+      },
+      showCancelButton: true,
+      confirmButtonText: "Add",
+      showLoaderOnConfirm: true,
+      preConfirm: (value) => {
+        return ApiClient.Post("/wallet", { value: value })
+          .then((res) => {
+            this.refreshWallet();
+            return res.data;
+          })
+
+          .catch((error) => {
+            Swal.showValidationMessage(`Request failed: ${error}`);
+          });
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
+    });
   };
 
   render() {
@@ -135,6 +166,7 @@ export class HomepageHeader extends Component {
                   aria-controls="menu-appbar"
                   aria-haspopup="true"
                   color="white"
+                  onClick={this.addWallet}
                 >
                   <AccountBalanceWalletIcon style={{ marginRight: 10 }} />
                   <Typography variant="button">
