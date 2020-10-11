@@ -154,7 +154,11 @@ function Concert({ match }) {
       <Header />
       {concert && (
         <>
-          <Video source={concert.stream_key} start_time={concert.start_time} id={concert.id}/>
+          <Video
+            source={concert.stream_key}
+            start_time={concert.start_time}
+            id={concert.id}
+          />
           <Box className={classes.detailContainer} mx={20} my={5}>
             <div className={classes.nameContainer}>
               <Typography variant="h3" className={classes.concertDetail}>

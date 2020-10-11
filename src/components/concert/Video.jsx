@@ -15,61 +15,47 @@ function Video({ source, start_time, id }) {
   const [available, setAvailable] = useState(true);
   const [token, setToken] = useState("");
   const [canWatch, setCanWatch] = useState(false);
-  const [intv, setIntv] = useState(null);
   const history = useHistory();
 
   useEffect(() => {
     Axios.get(url).catch((err) => {
       setAvailable(false);
     });
-  }, []);
+  }, [url]);
 
   useEffect(() => {
-    // Axios.post(process.env.REACT_APP_API_URL + '/concerts/validation/session', {
-    //     cookie: cookie.load('WATCH_COOKIE'),
-    //     token: cookie.load('WATCH_TOKEN')
-    // })
-    // .then(res => {
-    //     if (res.data === 1) {
-    //         setCanWatch(true)
-    //     }
-    // })
-    // return () => {
-    //     console.log(intv + 'ddd')
-    //     clearInterval(intv)
-    // }
-  }, []);
+    Axios.post(process.env.REACT_APP_API_URL + "/concerts/validation/session", {
+      cookie: cookie.load("WATCH_COOKIE"),
+      token: cookie.load("WATCH_TOKEN"),
+    }).then((res) => {
+      if (res.data === 1) {
+        setCanWatch(true);
 
-  useEffect(() => {
-    const intv = setInterval(() => {
-      if (!canWatch) {
-        return;
-      }
-      Axios.post(
-        process.env.REACT_APP_API_URL + "/concerts/validation/session",
-        {
-          cookie: cookie.load("WATCH_COOKIE"),
-          token: cookie.load("WATCH_TOKEN"),
-        }
-      ).then((res) => {
-        if (!res.data) {
-          setCanWatch(false);
-          cookie.remove("WATCH_COOKIE");
-          cookie.remove("WATCH_TOKEN");
-          Swal.fire({
-            title: "Warning",
-            html: `Someone has used your token`,
-            icon: "error",
-            timer: 1000,
-          }).then(() => {
-            history.push("/");
+        setInterval(() => {
+          Axios.post(
+            process.env.REACT_APP_API_URL + "/concerts/validation/session",
+            {
+              cookie: cookie.load("WATCH_COOKIE"),
+              token: cookie.load("WATCH_TOKEN"),
+            }
+          ).then((res) => {
+            if (!res.data) {
+              setCanWatch(false);
+              cookie.remove("WATCH_COOKIE");
+              cookie.remove("WATCH_TOKEN");
+              Swal.fire({
+                title: "Warning",
+                html: `Someone has used your token`,
+                icon: "error",
+                timer: 1000,
+              }).then(() => {
+                history.push("/");
+              });
+            }
           });
-        }
-      });
-    }, 2000);
-    return () => {
-      clearInterval(intv);
-    };
+        }, 2000);
+      }
+    });
   }, []);
 
   function validateToken() {
@@ -79,6 +65,30 @@ function Video({ source, start_time, id }) {
       setCanWatch(true);
       cookie.save("WATCH_COOKIE", res.data, { path: "/concert/" + id });
       cookie.save("WATCH_TOKEN", token, { path: "/concert/" + id });
+
+      setInterval(() => {
+        Axios.post(
+          process.env.REACT_APP_API_URL + "/concerts/validation/session",
+          {
+            cookie: res.data,
+            token: token,
+          }
+        ).then((res) => {
+          if (!res.data) {
+            setCanWatch(false);
+            cookie.remove("WATCH_COOKIE");
+            cookie.remove("WATCH_TOKEN");
+            Swal.fire({
+              title: "Warning",
+              html: `Someone has used your token`,
+              icon: "error",
+              timer: 1000,
+            }).then(() => {
+              history.push("/");
+            });
+          }
+        });
+      }, 2000);
     });
   }
 
