@@ -12,7 +12,7 @@ import Menu from "@material-ui/core/Menu";
 
 import cookie from "react-cookies";
 import { Input, SwipeableDrawer, TextField } from "@material-ui/core";
-import { NavigationDrawer } from "../../navigation-drawer/NavigationDrawer";
+import NavigationDrawer from "../../navigation-drawer/NavigationDrawer";
 export class HomepageHeader extends Component {
   state = {
     anchorEl: null,
