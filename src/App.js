@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register.jsx";
@@ -11,7 +11,8 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import ApplyStreamer from "./components/apply-streamer/ApplyStreamer";
-import Referral from "./components/referral/Referral"
+import SellerSelling from "./components/seller/SellerSellingPage";
+import Referral from "./components/referral/Referral";
 
 const theme = createMuiTheme({
   palette: {
@@ -43,7 +44,8 @@ function App() {
               path="/apply-streamer"
               Component={ApplyStreamer}
             />
-            <LoggedInRoute exact path="/referrals" Component={Referral}/>
+            <LoggedInRoute exact path="/sellings" Component={SellerSelling} />
+            <LoggedInRoute exact path="/referrals" Component={Referral} />
           </Switch>
         </Router>
       </ThemeProvider>
