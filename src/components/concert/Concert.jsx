@@ -15,6 +15,7 @@ import Axios from 'axios'
 import cookie from 'react-cookies'
 import Colors from '../../theme/colors'
 import User from '../../models/User';
+import Ticket from '../../models/Ticket';
 
 const useStyles = makeStyles({
     detailContainer: {
@@ -111,6 +112,7 @@ function Concert({ match }) {
         .catch(err => {
             setError(err.response.data.message.error)
             setSuccess('')
+            setAcceptedCode(null)
         })
     }
 
@@ -129,12 +131,18 @@ function Concert({ match }) {
     }
 
     function buyTicket() {
-        User.Wallet().then((res) => {
-            const balance = res.data.balance
-            if (balance < getFinalPrice()) {
-                Swal.fire("Insufficient balance", "", "warning")
-            }
-        });
+        Ticket.Buy({
+            concert_id: concert.id,
+            referral_id: acceptedCode,
+            quantity
+        })
+        .then(res => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Ticket succesfully bought',
+                timer: 3000
+            })
+        })
     }
 
     return (
