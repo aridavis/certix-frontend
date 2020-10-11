@@ -1,41 +1,43 @@
-
-@font-face{
-    font-family: 'Equinox';
-    src: url('./fonts/equinox.ttf');
+@font-face {
+  font-family: "Equinox";
+  src: url("./fonts/equinox.ttf");
 }
 
-@font-face{
-    font-family: 'Hello Beauty';
-    src: url('./fonts/hello-beauty.ttf');
+@font-face {
+  font-family: "Hello Beauty";
+  src: url("./fonts/hello-beauty.ttf");
 }
 
-@font-face{
-    font-family: 'Gilmer';
-    src: url('./fonts/Gilmer\ Regular.ttf');
+@font-face {
+  font-family: "Gilmer";
+  src: url("./fonts/Gilmer\ Regular.ttf");
 }
 
-@font-face{
-    font-family: 'Gilmer Heavy';
-    src: url('./fonts/Gilmer\ Heavy.ttf');
+@font-face {
+  font-family: "Gilmer Heavy";
+  src: url("./fonts/Gilmer\ Heavy.ttf");
 }
 
-
-@font-face{
-    font-family: 'Gilmer Light';
-    src: url('./fonts/Gilmer\ Light.ttf');
+@font-face {
+  font-family: "Gilmer Light";
+  src: url("./fonts/Gilmer\ Light.ttf");
 }
 
-@font-face{
-    font-family: 'Gilmer Medium';
-    src: url('./fonts/Gilmer\ Medium.ttf');
+@font-face {
+  font-family: "Gilmer Medium";
+  src: url("./fonts/Gilmer\ Medium.ttf");
 }
 
-@font-face{
-    font-family: 'Gilmer Outline';
-    src: url('./fonts/Gilmer\ Outline.ttf');
+@font-face {
+  font-family: "Gilmer Outline";
+  src: url("./fonts/Gilmer\ Outline.ttf");
 }
 
-@font-face{
-    font-family: 'Gilmer Bold';
-    src: url('./fonts/Gilmer\ Bold.ttf');
+@font-face {
+  font-family: "Gilmer Bold";
+  src: url("./fonts/Gilmer\ Bold.ttf");
+}
+
+body {
+  font-family: "Gilmer", sans-serif;
 }

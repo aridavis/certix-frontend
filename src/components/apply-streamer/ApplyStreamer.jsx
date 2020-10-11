@@ -14,14 +14,15 @@ import {
 } from "@material-ui/core";
 import cookie from "react-cookies";
 import singer from "../../assets/images/singer.jpg";
-import ApplySellerModel from "../../models/ApplySeller";
+import ApplySellerModel from "../../models/ApplyStreamer";
 import { DatePicker } from "@material-ui/pickers";
 import Axios from "axios";
 import Swal from "sweetalert2";
+import ApplyStreamerModel from "../../models/ApplyStreamer";
 
 const moment = require("moment");
 
-export class ApplySeller extends Component {
+export class ApplyStreamer extends Component {
   state = {
     ic_number: "",
     name: "",
@@ -50,7 +51,7 @@ export class ApplySeller extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    ApplySellerModel.Store(this.state).then((res) => {
+    ApplyStreamerModel.Store(this.state).then((res) => {
       Swal.fire("", "Success Applying", "success").then(() => {
         this.resetState();
       });
@@ -120,7 +121,7 @@ export class ApplySeller extends Component {
         <form onSubmit={this.handleSubmit}>
           <Grid container className={[classes.formContainer, classes.dfjccaic]}>
             <Typography className={classes.title} variant="h3">
-              Start Streaming
+              BECOME A STREAMER
             </Typography>
             {fields.map((res) => this.renderInput(res))}
             <Button
@@ -203,4 +204,4 @@ const fields = [
   }),
 ];
 
-export default withStyles(useStyles)(ApplySeller);
+export default withStyles(useStyles)(ApplyStreamer);

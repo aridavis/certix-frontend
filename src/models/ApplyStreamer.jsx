@@ -1,7 +1,7 @@
 import ApiClient from "../services/ApiClient";
 
-class ApplySellerModel {
+class ApplyStreamerModel {
   static Store = (body) => ApiClient.Post("/seller/application", body);
 }
 
-export default ApplySellerModel;
+export default ApplyStreamerModel;
