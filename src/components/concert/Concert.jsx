@@ -14,8 +14,8 @@ import { useHistory } from "react-router";
 import Axios from "axios";
 import cookie from "react-cookies";
 import Colors from "../../theme/colors";
-import User from "../../models/User";
 import Ticket from "../../models/Ticket";
+import Impression from "../../models/Impression";
 
 const useStyles = makeStyles({
   detailContainer: {
@@ -59,6 +59,11 @@ function Concert({ match }) {
         history.push("/");
       }
       setConcert(res.data);
+      Impression.Plus({
+        concert_id: res.data.id,
+      }).then((res) => {
+        console.log("impression logged");
+      });
     });
   }, []);
 
