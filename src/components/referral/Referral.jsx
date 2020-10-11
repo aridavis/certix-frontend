@@ -16,6 +16,7 @@ import {
 } from "@material-ui/core";
 import { Link } from 'react-router-dom'
 import Color from '../../theme/colors'
+import Header from "../header/Header";
 
 const useStyles = makeStyles({
   jumbotron: {
@@ -94,6 +95,7 @@ export default function Referral() {
 
   return (
     <div className={classes.root}>
+        <Header />
       <Box className={classes.jumbotron}>
         <Box className={classes.header} px={10}>
           <Typography className={classes.title} variant="h2">
