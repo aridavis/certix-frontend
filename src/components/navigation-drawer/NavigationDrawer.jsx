@@ -34,7 +34,6 @@ export class NavigationDrawer extends Component {
 }
 
 const createPages = (name, url, classes) => {
-  console.log(classes)
   return (
     <Link to={url} className={classes.listItem}>
       <ListItem
