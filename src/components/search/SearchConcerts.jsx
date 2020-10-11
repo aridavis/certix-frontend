@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/core";
 import { ItemContainer } from "../homepage/item/ItemContainer";
 import Concert from "../../models/Concert";
-import queryString from "query-string";
 
 export class SearchConcerts extends Component {
   state = {

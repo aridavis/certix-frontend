@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import {
   Button,
-  Checkbox,
   FormControl,
-  FormControlLabel,
   Grid,
   InputLabel,
   MenuItem,
@@ -12,11 +10,11 @@ import {
   Typography,
   withStyles,
 } from "@material-ui/core";
-import cookie from "react-cookies";
+
 import singer from "../../assets/images/singer.jpg";
-import ApplySellerModel from "../../models/ApplyStreamer";
+
 import { DatePicker } from "@material-ui/pickers";
-import Axios from "axios";
+
 import Swal from "sweetalert2";
 import ApplyStreamerModel from "../../models/ApplyStreamer";
 import Header from "../header/Header";

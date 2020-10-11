@@ -9,7 +9,7 @@ import {
   Typography,
   withStyles,
 } from "@material-ui/core";
-import image from "../../../assets/images/concert.jpg";
+
 import { Link } from "react-router-dom";
 
 const randomedStreamer = [

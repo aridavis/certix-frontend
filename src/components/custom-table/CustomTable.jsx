@@ -15,7 +15,6 @@ import {
 } from "@material-ui/core";
 
 import AddIcon from "@material-ui/icons/Add";
-import purple from "@material-ui/core/colors/deepPurple";
 
 import AddDataDialog from "./AddDataDialog";
 

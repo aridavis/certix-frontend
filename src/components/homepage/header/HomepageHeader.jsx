@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -11,7 +11,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 
 import cookie from "react-cookies";
-import { Input, SwipeableDrawer, TextField } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import NavigationDrawer from "../../navigation-drawer/NavigationDrawer";
 import User from "../../../models/User";
 export class HomepageHeader extends Component {

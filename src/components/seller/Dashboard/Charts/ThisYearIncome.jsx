@@ -13,7 +13,6 @@ import {
 } from "recharts";
 import { withStyles } from "@material-ui/core/styles";
 import green from "@material-ui/core/colors/green";
-import orange from "@material-ui/core/colors/deepOrange";
 
 export class ThisYearIncome extends Component {
   mapPropsToData = () => {

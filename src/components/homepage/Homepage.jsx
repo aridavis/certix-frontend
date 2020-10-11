@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import HomepageHeader from "./header/HomepageHeader";
 import { ItemContainer } from "./item/ItemContainer";
-import ApiClient from "../../services/ApiClient";
+
 import Axios from "axios";
 
 export class Homepage extends Component {
@@ -78,8 +78,6 @@ export class Homepage extends Component {
   };
 
   render() {
-    const { classes } = this.props;
-
     return (
       <div>
         <HomepageHeader />

@@ -1,4 +1,4 @@
-import { Container, Grid, withStyles } from "@material-ui/core";
+import { withStyles } from "@material-ui/core";
 import React, { Component } from "react";
 import Cards from "./Cards/Cards";
 import MiddleChart from "./Charts/MiddleChart/MiddleChart";

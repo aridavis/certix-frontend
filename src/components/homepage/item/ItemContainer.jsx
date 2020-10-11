@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Grid, Typography, withStyles } from "@material-ui/core";
+import { Grid, Typography, withStyles } from "@material-ui/core";
 import Item from "./Item";
 
 export class ItemContainer extends Component {
@@ -30,8 +30,6 @@ export class ItemContainer extends Component {
   };
 
   render() {
-    const { classes } = this.props;
-
     return (
       <div>
         {" "}

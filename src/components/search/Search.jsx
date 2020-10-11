@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { AppBar, Container, Tab, Tabs, withStyles } from "@material-ui/core";
+import { AppBar, Tab, Tabs, withStyles } from "@material-ui/core";
 import Header from "../header/Header";
 import queryString from "query-string";
-import { TabPanel } from "@material-ui/lab";
 import SearchStreamer from "./SearchStreamer";
 import SearchConcert from "./SearchConcerts";
 export class Search extends Component {
@@ -21,7 +20,6 @@ export class Search extends Component {
   };
 
   render() {
-    const { classes } = this.props;
     console.log(
       parseInt(queryString.parse(this.props.location.search).tab) !== NaN
     );

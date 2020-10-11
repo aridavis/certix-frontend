@@ -61,7 +61,7 @@ export class HomepageHeader extends Component {
   }
 
   refreshWallet = () => {
-    cookie.load("ACCESS_TOKEN") != undefined &&
+    cookie.load("ACCESS_TOKEN") !== undefined &&
       User.Wallet().then((res) => {
         this.setState({
           wallet: res.data.balance

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/core";
 import { ItemContainer } from "../homepage/item/ItemContainer";
 import Streamer from "../../models/Streamer";
-import queryString from "query-string";
 
 export class SearchStreamer extends Component {
   state = {
