@@ -17,6 +17,7 @@
     "hls.js": "^0.13.3-canary.5704",
     "moment": "^2.29.1",
     "node-sass": "^4.14.1",
+    "query-string": "^6.13.5",
     "react": "^16.13.1",
     "react-cookie": "^4.0.3",
     "react-cookies": "^0.1.1",

@@ -13,6 +13,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import ApplyStreamer from "./components/apply-streamer/ApplyStreamer";
 import SellerSelling from "./components/seller/SellerSellingPage";
 import Referral from "./components/referral/Referral";
+import Search from "./components/search/Search";
 
 const theme = createMuiTheme({
   palette: {
@@ -46,6 +47,7 @@ function App() {
             />
             <LoggedInRoute exact path="/sellings" Component={SellerSelling} />
             <LoggedInRoute exact path="/referrals" Component={Referral} />
+            <Route exact path="/search" component={Search} />
           </Switch>
         </Router>
       </ThemeProvider>

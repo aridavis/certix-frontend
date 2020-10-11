@@ -19,7 +19,7 @@ import User from "../../models/User";
 export class HomepageHeader extends Component {
   state = {
     anchorEl: null,
-    search: "",
+    search: this.props.text !== undefined ? this.props.text : "",
     drawerOpen: false,
     wallet: "0",
   };
