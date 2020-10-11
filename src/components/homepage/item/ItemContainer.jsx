@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Grid, withStyles } from "@material-ui/core";
+import { Container, Grid, Typography, withStyles } from "@material-ui/core";
 import Item from "./Item";
 
 export class ItemContainer extends Component {
@@ -32,7 +32,17 @@ export class ItemContainer extends Component {
   render() {
     const { classes } = this.props;
 
-    return <div>{this.renderGrids()}</div>;
+    return (
+      <div>
+        {" "}
+        {this.props.data.length === 0 && (
+          <Typography variant="h5" style={{ color: "white" }}>
+            No Data
+          </Typography>
+        )}{" "}
+        {this.renderGrids()}
+      </div>
+    );
   }
 }
 

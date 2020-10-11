@@ -6,16 +6,15 @@ import {
   SwipeableDrawer,
   withStyles,
 } from "@material-ui/core";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 export class NavigationDrawer extends Component {
-
   render() {
     const { classes } = this.props;
     const pages = [
       createPages("Home", "/", classes),
-      createPages('Referrals', '/referrals', classes),
-      createPages('History', '/history', classes)
+      createPages("Referrals", "/referrals", classes),
+      createPages("History", "/history", classes),
     ];
 
     return (
@@ -34,16 +33,12 @@ export class NavigationDrawer extends Component {
 }
 
 const createPages = (name, url, classes) => {
-  console.log(classes)
   return (
     <Link to={url} className={classes.listItem}>
-      <ListItem
-        button
-        key={name}
-      >
+      <ListItem button key={name}>
         <ListItemText primary={name} />
       </ListItem>
-      </Link>
+    </Link>
   );
 };
 
@@ -55,8 +50,8 @@ const useStyles = (theme) => ({
     width: "auto",
   },
   listItem: {
-    textDecoration: 'none',
-    color: '#ffffff'
-  }
+    textDecoration: "none",
+    color: "#ffffff",
+  },
 });
 export default withStyles(useStyles)(NavigationDrawer);

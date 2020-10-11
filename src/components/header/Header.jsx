@@ -16,6 +16,9 @@ import cookie from "react-cookies";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import NavigationDrawer from "../navigation-drawer/NavigationDrawer";
 import User from "../../models/User";
+
+import { browserHistory } from "react-router-dom";
+
 export class HomepageHeader extends Component {
   state = {
     anchorEl: null,
@@ -87,7 +90,13 @@ export class HomepageHeader extends Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" className={classes.title}>
+            <Typography
+              variant="h6"
+              className={classes.title}
+              onClick={() => {
+                window.location.href = "/";
+              }}
+            >
               CERTIX
             </Typography>
             <form onSubmit={this.handleSearch}>

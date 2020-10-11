@@ -26,10 +26,6 @@ export class Item extends Component {
             <Typography gutterBottom variant="h5" component="h2">
               {data.name}
             </Typography>
-
-            <Typography variant="body2" color="textSecondary" component="p">
-              {data.rating} / 5.0
-            </Typography>
           </CardContent>
         </CardActionArea>
         <CardActions>
@@ -86,7 +82,7 @@ export class Item extends Component {
 
 const useStyles = (theme) => ({
   media: {
-    height: 140,
+    height: 300,
   },
 });
 export default withStyles(useStyles)(Item);
