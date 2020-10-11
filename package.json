@@ -24,12 +24,15 @@
     "react-cookies": "^0.1.1",
     "react-dom": "^16.13.1",
     "react-draggable": "^4.4.3",
+    "react-hls-player": "^1.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "react-video-js-player": "^1.1.1",
     "recharts": "^1.8.5",
     "sweetalert2": "^10.3.7",
     "video.js": "^7.8.4",
-    "videojs-contrib-hls": "^5.15.0"
+    "videojs-contrib-hls": "^5.15.0",
+    "videojs-errors": "^4.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
