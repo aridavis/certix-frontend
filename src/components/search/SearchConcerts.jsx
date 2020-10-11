@@ -6,13 +6,13 @@ import queryString from "query-string";
 
 export class SearchConcerts extends Component {
   state = {
-    streamers: [],
+    concerts: [],
   };
 
   componentWillMount() {
     Concert.Get(this.props.keyword).then((res) => {
       this.setState({
-        streamers: res.data,
+        concerts: res.data,
       });
     });
   }
@@ -26,7 +26,7 @@ export class SearchConcerts extends Component {
   };
 
   render() {
-    const data = this.state.streamers.map((res) =>
+    const data = this.state.concerts.map((res) =>
       createConcertData(res.id, res.name, res.seller.name, res.price)
     );
 

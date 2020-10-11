@@ -55,13 +55,14 @@ export class HomepageHeader extends Component {
   }
 
   componentWillMount() {
-    User.Wallet().then((res) => {
-      this.setState({
-        wallet: res.data.balance
-          .toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, "."),
+    cookie.load("ACCESS_TOKEN") != undefined &&
+      User.Wallet().then((res) => {
+        this.setState({
+          wallet: res.data.balance
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, "."),
+        });
       });
-    });
   }
 
   logout = () => {

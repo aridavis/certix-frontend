@@ -24,6 +24,7 @@ export class SellerSellingPage extends Component {
   state = {
     genres: [],
     value: 0,
+    isValidated: false,
   };
 
   handleTabChange = (event, value) => {
@@ -32,6 +33,17 @@ export class SellerSellingPage extends Component {
     });
   };
   componentWillMount() {
+    SellerSelling.ValidateSeller().then((res) => {
+      console.log(res.data);
+      if (res.data === 1) {
+        this.setState({
+          isValidated: true,
+        });
+      } else {
+        window.location.href = "/apply-streamer";
+      }
+    });
+
     Genre.Get({}).then((res) => {
       this.setState({
         genres: res.data,
@@ -55,35 +67,37 @@ export class SellerSellingPage extends Component {
       ),
     ];
     return (
-      <React.Fragment>
-        <Header />
+      this.state.isValidated && (
+        <React.Fragment>
+          <Header />
 
-        <AppBar position="static">
-          <Tabs
-            style={{ backgroundColor: "black", color: "white" }}
-            value={this.state.value}
-            onChange={this.handleTabChange}
-            aria-label="simple tabs example"
-          >
-            <Tab label="Dashboard" />
-            <Tab label="Concerts" />
-          </Tabs>
-        </AppBar>
-        {this.state.value === 1 && (
-          <Paper>
-            <CustomTable
-              model={SellerSelling}
-              title="Seller Sellings"
-              headCells={headCells}
-              filterForm={filterForm}
-              addFormAttributes={addFormAttributes}
-              updateFormAttributes={updateFormAttributes}
-            ></CustomTable>
-          </Paper>
-        )}
+          <AppBar position="static">
+            <Tabs
+              style={{ backgroundColor: "black", color: "white" }}
+              value={this.state.value}
+              onChange={this.handleTabChange}
+              aria-label="simple tabs example"
+            >
+              <Tab label="Dashboard" />
+              <Tab label="Concerts" />
+            </Tabs>
+          </AppBar>
+          {this.state.value === 1 && (
+            <Paper>
+              <CustomTable
+                model={SellerSelling}
+                title="Seller Sellings"
+                headCells={headCells}
+                filterForm={filterForm}
+                addFormAttributes={addFormAttributes}
+                updateFormAttributes={updateFormAttributes}
+              ></CustomTable>
+            </Paper>
+          )}
 
-        {this.state.value === 0 && <Dashboard />}
-      </React.Fragment>
+          {this.state.value === 0 && <Dashboard />}
+        </React.Fragment>
+      )
     );
   }
 }
