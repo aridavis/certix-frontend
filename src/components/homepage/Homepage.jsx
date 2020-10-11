@@ -19,7 +19,7 @@ export class Homepage extends Component {
     streamers: [],
   };
 
-  renderTitle = (name) => (
+  renderTitle = (name, type) => (
     <Grid
       container
       justify="space-between"
@@ -32,7 +32,13 @@ export class Homepage extends Component {
       >
         {name}
       </Typography>
-      <Button variant="outlined" color="secondary">
+      <Button
+        variant="outlined"
+        color="secondary"
+        onClick={() => {
+          window.location.href = `/search?tab=${type === "concert" ? 0 : 1}`;
+        }}
+      >
         Explore
       </Button>
     </Grid>
@@ -41,7 +47,7 @@ export class Homepage extends Component {
   renderDataContainer = (title, type, data) => {
     return (
       <div className={this.props.classes.dataContainer}>
-        {this.renderTitle(title)}
+        {this.renderTitle(title, type)}
         <ItemContainer type={type} data={data}></ItemContainer>
       </div>
     );

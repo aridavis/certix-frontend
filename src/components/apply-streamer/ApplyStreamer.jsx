@@ -19,6 +19,8 @@ import { DatePicker } from "@material-ui/pickers";
 import Axios from "axios";
 import Swal from "sweetalert2";
 import ApplyStreamerModel from "../../models/ApplyStreamer";
+import Header from "../header/Header";
+import SellerSelling from "../../models/SellerSelling";
 
 const moment = require("moment");
 
@@ -28,6 +30,15 @@ export class ApplyStreamer extends Component {
     name: "",
     description: "",
   };
+
+  componentWillMount() {
+    SellerSelling.ValidateSeller().then((res) => {
+      console.log(res.data);
+      if (res.data === 1) {
+        window.location.href = "/sellings";
+      }
+    });
+  }
 
   handleTextChange = (event, key) => {
     this.setState({
@@ -116,27 +127,33 @@ export class ApplyStreamer extends Component {
     const { classes } = this.props;
 
     return (
-      <div className={classes.root}>
-        <form onSubmit={this.handleSubmit}>
-          <Grid container className={[classes.formContainer, classes.dfjccaic]}>
-            <Typography className={classes.title} variant="h3">
-              BECOME A STREAMER
-            </Typography>
-            {fields.map((res) => this.renderInput(res))}
-            <Button
-              fullWidth
-              variant="contained"
-              color="primary"
-              type="submit"
-              onClick={this.handleSubmit}
-              style={{ marginTop: "20px" }}
-              href="#contained-buttons"
+      <React.Fragment>
+        <Header />
+        <div className={classes.root}>
+          <form onSubmit={this.handleSubmit}>
+            <Grid
+              container
+              className={[classes.formContainer, classes.dfjccaic]}
             >
-              Apply Now
-            </Button>
-          </Grid>
-        </form>
-      </div>
+              <Typography className={classes.title} variant="h3">
+                BECOME A STREAMER
+              </Typography>
+              {fields.map((res) => this.renderInput(res))}
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                type="submit"
+                onClick={this.handleSubmit}
+                style={{ marginTop: "20px" }}
+                href="#contained-buttons"
+              >
+                Apply Now
+              </Button>
+            </Grid>
+          </form>
+        </div>
+      </React.Fragment>
     );
   }
 }
