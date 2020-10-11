@@ -2,7 +2,7 @@ import React from 'react'
 import { Typography } from "@material-ui/core";
 import SentimentSatisfiedIcon from '@material-ui/icons/SentimentSatisfied';
 
-function Alternative() {
+function Alternative({ message }) {
     return (
         <div style={{
             display: 'flex',
@@ -13,7 +13,7 @@ function Alternative() {
             backgroundColor: 'white'
         }}>
             <Typography variant="h3">
-               Concert has not been started <SentimentSatisfiedIcon style={{ fontSize: '2rem' }} />
+               {message} <SentimentSatisfiedIcon style={{ fontSize: '2rem' }} />
             </Typography>
         </div>
     )
