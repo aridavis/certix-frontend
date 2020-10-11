@@ -10,7 +10,6 @@ import {
 } from "@material-ui/core";
 import cookie from "react-cookies";
 import concert from "../../assets/images/concert.jpg";
-import { browserHistory } from 'react-router-dom'
 
 import User from "../../models/User";
 export class Login extends Component {

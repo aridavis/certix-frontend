@@ -1,0 +1,47 @@
+@font-face {
+    font-family: "Equinox";
+    src: url('./assets/fonts/equinox.ttf')
+  }
+  
+  @font-face {
+    font-family: "Hello Beauty";
+    src: url("./assets/fonts/hello-beauty.ttf");
+  }
+  
+  @font-face {
+    font-family: "Gilmer";
+    src: url("./assets/fonts/Gilmer\ Regular.ttf");
+  }
+  
+  @font-face {
+    font-family: "Gilmer Heavy";
+    src: url("./assets/fonts/Gilmer\ Heavy.ttf");
+  }
+  
+  @font-face {
+    font-family: "Gilmer Light";
+    src: url("./assets/fonts/Gilmer\ Light.ttf");
+  }
+  
+  @font-face {
+    font-family: "Gilmer Medium";
+    src: url("./assets/fonts/Gilmer\ Medium.ttf");
+  }
+  
+  @font-face {
+    font-family: "Gilmer Outline";
+    src: url("./assets/fonts/Gilmer\ Outline.ttf");
+  }
+  
+  @font-face {
+    font-family: "Gilmer Bold";
+    src: url("./assets/fonts/Gilmer\ Bold.ttf");
+  }
+  
+  body {
+    font-family: "Gilmer", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #141414;
+  }
+  
