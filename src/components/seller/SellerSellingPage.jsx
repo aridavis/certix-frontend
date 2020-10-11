@@ -123,9 +123,9 @@ const useStyles = (theme) => ({});
 const headCells = [
   { id: "id", label: "ID", type: "text" },
   { id: "name", label: "Name", type: "text" },
-  { id: "start_time", label: "Start Time", type: "text" },
   { id: "price", label: "Price", type: "text" },
-  { id: "status", label: "Status", type: "text" },
+  { id: "start_time", label: "Start Time", type: "text" },
+  { id: "stream_key", label: "Streaming Key", type: "text" },
   { id: "created_at", label: "Created At", type: "text" },
   { id: "updated_at", label: "Updated At", type: "text" },
 ];

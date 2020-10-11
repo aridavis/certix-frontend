@@ -12,6 +12,7 @@ import cookie from "react-cookies";
 import concert from "../../assets/images/concert.jpg";
 
 import User from "../../models/User";
+import { Link } from "react-router-dom";
 export class Login extends Component {
   state = {
     email: "",
@@ -32,7 +33,7 @@ export class Login extends Component {
         path: "/",
         expires: this.state.remember_me ? new Date(res.data.expires_at) : null,
       });
-      this.props.history.push('/')
+      this.props.history.push("/");
     });
   };
 
@@ -96,6 +97,12 @@ export class Login extends Component {
             >
               Login
             </Button>
+            <span style={{ color: "white", marginTop: "10px" }}>
+              Don't have account?{" "}
+              <Link to="register" style={{ color: "white" }}>
+                Register
+              </Link>
+            </span>
           </Grid>
         </form>
       </div>

@@ -59,7 +59,12 @@ export class Item extends Component {
 
     return (
       <Card className={classes.root}>
-        <CardActionArea>
+        <CardActionArea
+          onClick={() =>
+            (window.location.href =
+              this.props.type === "concert" ? "concert/" + data.id : "#")
+          }
+        >
           <CardMedia
             className={classes.media}
             image={
@@ -82,7 +87,10 @@ export class Item extends Component {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Link to={this.props.type === "concert" ? "concert/" + data.id : "#"}>
+          <Link
+            to={this.props.type === "concert" ? "concert/" + data.id : "#"}
+            style={{ textDecoration: "none" }}
+          >
             <Button size="small" color="primary">
               Watch
             </Button>
