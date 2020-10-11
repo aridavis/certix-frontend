@@ -7,7 +7,7 @@ function Alternative({ className }) {
         <div className={className} style={{
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
         }}>
             <Typography variant="h3">
                Concert has not been started <SentimentSatisfiedIcon style={{ fontSize: '2rem' }} />
