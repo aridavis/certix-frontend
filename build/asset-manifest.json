@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.336003a7.chunk.css",
+    "main.js": "/static/js/main.d821812c.chunk.js",
+    "main.js.map": "/static/js/main.d821812c.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.c8a21426.js",
+    "runtime-main.js.map": "/static/js/runtime-main.c8a21426.js.map",
+    "static/js/2.5bccda32.chunk.js": "/static/js/2.5bccda32.chunk.js",
+    "static/js/2.5bccda32.chunk.js.map": "/static/js/2.5bccda32.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.ba2eabc8c0fd09cbf03bceecfb6b7772.js": "/precache-manifest.ba2eabc8c0fd09cbf03bceecfb6b7772.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.336003a7.chunk.css.map": "/static/css/main.336003a7.chunk.css.map",
+    "static/js/2.5bccda32.chunk.js.LICENSE.txt": "/static/js/2.5bccda32.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/static/media/hello-beauty.4a91cccb.ttf",
+    "static/media/concert.jpg": "/static/media/concert.c1ebdff7.jpg",
+    "static/media/concert2.jpg": "/static/media/concert2.0050b78d.jpg",
+    "static/media/concert3.jpg": "/static/media/concert3.2f0320d4.jpg",
+    "static/media/search.jpg": "/static/media/search.e818a9e1.jpg",
+    "static/media/singer.jpg": "/static/media/singer.3001a2d2.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c8a21426.js",
+    "static/js/2.5bccda32.chunk.js",
+    "static/css/main.336003a7.chunk.css",
+    "static/js/main.d821812c.chunk.js"
+  ]
+}
