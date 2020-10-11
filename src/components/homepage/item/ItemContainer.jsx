@@ -9,7 +9,6 @@ export class ItemContainer extends Component {
     for (let i = 0; i < this.props.data.length / 5; i++) {
       {
         this.props.data.slice(i * 5, i * 5 + 5).map((res) => {
-          console.log(res);
           gridItems.push(
             <Grid item xs={12} lg>
               <Item type={this.props.type} data={res}></Item>
@@ -22,7 +21,6 @@ export class ItemContainer extends Component {
     }
 
     return grids.map((res) => {
-      console.log(res);
       return (
         <Grid container spacing={3} justify="center">
           {res.map((x) => x)}

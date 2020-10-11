@@ -51,7 +51,6 @@ export class CustomTable extends Component {
 
   refreshData = () => {
     this.props.model.Get(this.state.filter).then((res) => {
-      console.log(res.data);
       this.setState({
         data: res.data,
         totalData: res.data.total_data,
@@ -114,7 +113,7 @@ export class CustomTable extends Component {
 
   renderTableData = () => {
     const { page, data } = this.state;
-    console.log(data);
+
     const rowsPerPage = this.state.filter.rowsPerPage;
     const emptyRows =
       rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);

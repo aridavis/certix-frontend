@@ -71,7 +71,6 @@ export class ApplyStreamer extends Component {
   );
 
   renderInput = (data) => {
-    console.log(data);
     if (data.type === "date") {
       return this.renderDatePicker(data);
     } else if (data.type === "select") {

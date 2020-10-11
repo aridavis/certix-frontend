@@ -1,56 +1,56 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import singer from '../../assets/images/singer.jpg'
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import singer from "../../assets/images/singer.jpg";
 import Swal from "sweetalert2";
-import { 
-  Typography, 
-  Box, 
-  TableCell, 
-  Paper, 
-  Table, 
-  TableHead, 
-  TableRow, 
-  TableBody, 
+import {
+  Typography,
+  Box,
+  TableCell,
+  Paper,
+  Table,
+  TableHead,
+  TableRow,
+  TableBody,
   TableContainer,
-  Button
+  Button,
 } from "@material-ui/core";
-import StarIcon from '@material-ui/icons/Star';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import StarHalfIcon from '@material-ui/icons/StarHalf';
+import StarIcon from "@material-ui/icons/Star";
+import StarBorderIcon from "@material-ui/icons/StarBorder";
+import StarHalfIcon from "@material-ui/icons/StarHalf";
 
 const useStyles = makeStyles({
   jumbotron: {
     background: `url(${singer})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    width: '100%',
-    height: '400px',
-    display: 'flex',
-    alignItems: 'center'
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    width: "100%",
+    height: "400px",
+    display: "flex",
+    alignItems: "center",
   },
   header: {
-    color: 'white',
+    color: "white",
   },
   title: {
-    fontFamily: 'Equinox',
-    marginBottom: '10px'
+    fontFamily: "Equinox",
+    marginBottom: "10px",
   },
   subtitle: {
-    fontFamily: 'Gilmer'
+    fontFamily: "Gilmer",
   },
   tableContainer: {
-    maxWidth: '80vw'
+    maxWidth: "80vw",
   },
   historyContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   category: {
-    fontFamily: 'Equinox',
-    color: '#ffffff',
-    margin: '40px 0 40px 0'
-  }
+    fontFamily: "Equinox",
+    color: "#ffffff",
+    margin: "40px 0 40px 0",
+  },
 });
 
 function createData(name, start_time, genre, price, token) {
@@ -58,65 +58,65 @@ function createData(name, start_time, genre, price, token) {
 }
 
 function createPastData(name, start_time, genre, price, rating) {
-  return {name, start_time, genre, price, rating}
+  return { name, start_time, genre, price, rating };
 }
 
 const upcoming = [
-  createData('asd', '10.00', 'pop', 200000, 'aaa'),
-  createData('asd', '10.00', 'pop', 200000, 'bbb'),
+  createData("asd", "10.00", "pop", 200000, "aaa"),
+  createData("asd", "10.00", "pop", 200000, "bbb"),
 ];
 
 const past = [
-  createPastData('asd', '10.00', 'pop', 200000, 4.0),
-  createPastData('asd', '10.00', 'pop', 200000, 3.5),
-  createPastData('asd', '10.00', 'pop', 200000, 4.0),
-  createPastData('asd', '10.00', 'pop', 200000, 3.5),
-  createPastData('asd', '10.00', 'pop', 200000, 4.0),
-  createPastData('asd', '10.00', 'pop', 200000, 3.5),
-]
+  createPastData("asd", "10.00", "pop", 200000, 4.0),
+  createPastData("asd", "10.00", "pop", 200000, 3.5),
+  createPastData("asd", "10.00", "pop", 200000, 4.0),
+  createPastData("asd", "10.00", "pop", 200000, 3.5),
+  createPastData("asd", "10.00", "pop", 200000, 4.0),
+  createPastData("asd", "10.00", "pop", 200000, 3.5),
+];
 
 function onClick(token) {
-  const el = document.createElement('textarea');
+  const el = document.createElement("textarea");
   el.value = token;
-  el.setAttribute('readonly', '');
-  el.style.position = 'absolute';
-  el.style.left = '-9999px';
+  el.setAttribute("readonly", "");
+  el.style.position = "absolute";
+  el.style.left = "-9999px";
   document.body.appendChild(el);
   el.select();
-  document.execCommand('copy');
+  document.execCommand("copy");
   document.body.removeChild(el);
 
   Swal.fire({
-    title: 'Token copied to clipboard',
+    title: "Token copied to clipboard",
     html: `Your token is: <strong>${token}</strong><br>DO NOT show this token to anyone else!`,
     timer: 2000,
-  })
+  });
 }
 
 function generateStar(rating) {
-  const stars = []
-  let temp = rating
-  let count = 5
-  console.log('add')
-  while(temp >= 1) {
-    stars.push(<StarIcon/>)
-    temp -= 1
-    count -= 1
+  const stars = [];
+  let temp = rating;
+  let count = 5;
+
+  while (temp >= 1) {
+    stars.push(<StarIcon />);
+    temp -= 1;
+    count -= 1;
   }
   if (temp > 0 && temp < 1) {
-    stars.push(<StarHalfIcon/>)
-    count -= 1
+    stars.push(<StarHalfIcon />);
+    count -= 1;
   }
-  while(count > 0) {
-    stars.push(<StarBorderIcon/>)
-    count--
+  while (count > 0) {
+    stars.push(<StarBorderIcon />);
+    count--;
   }
 
-  return stars
+  return stars;
 }
 
 export default function History() {
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
     <div className={classes.root}>
@@ -136,19 +136,19 @@ export default function History() {
         </Typography>
         <TableContainer component={Paper} className={classes.tableContainer}>
           <Table className={classes.table} aria-label="simple table">
-          <colgroup>
+            <colgroup>
               <col width="30%" />
               <col width="30%" />
               <col width="10%" />
               <col width="10%" />
               <col width="20%" />
-          </colgroup>
+            </colgroup>
             <TableHead>
               <TableRow>
                 <TableCell>Concert Name</TableCell>
                 <TableCell align="center">Start Time</TableCell>
                 <TableCell align="center">Genre</TableCell>
-                <TableCell align="center">Price</TableCell> 
+                <TableCell align="center">Price</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -160,7 +160,14 @@ export default function History() {
                   <TableCell align="center">{row.start_time}</TableCell>
                   <TableCell align="center">{row.genre}</TableCell>
                   <TableCell align="center">{row.price}</TableCell>
-                  <TableCell align="center"><Button variant="contained" onClick={() => onClick(row.token)}>Get Private Token</Button></TableCell>
+                  <TableCell align="center">
+                    <Button
+                      variant="contained"
+                      onClick={() => onClick(row.token)}
+                    >
+                      Get Private Token
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -171,20 +178,20 @@ export default function History() {
         </Typography>
         <TableContainer component={Paper} className={classes.tableContainer}>
           <Table className={classes.table} aria-label="simple table">
-          <colgroup>
+            <colgroup>
               <col width="30%" />
               <col width="30%" />
               <col width="10%" />
               <col width="10%" />
               <col width="20%" />
-          </colgroup>
+            </colgroup>
             <TableHead>
               <TableRow>
                 <TableCell>Concert Name</TableCell>
                 <TableCell align="center">Start Time</TableCell>
                 <TableCell align="center">Genre</TableCell>
-                <TableCell align="center">Price</TableCell> 
-                <TableCell align="center">Rating</TableCell> 
+                <TableCell align="center">Price</TableCell>
+                <TableCell align="center">Rating</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -196,7 +203,9 @@ export default function History() {
                   <TableCell align="center">{row.start_time}</TableCell>
                   <TableCell align="center">{row.genre}</TableCell>
                   <TableCell align="center">{row.price}</TableCell>
-                  <TableCell align="center">{generateStar(row.rating)}</TableCell>
+                  <TableCell align="center">
+                    {generateStar(row.rating)}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { Container, Paper, withStyles } from "@material-ui/core";
+import {
+  AppBar,
+  Container,
+  Paper,
+  Tab,
+  Tabs,
+  withStyles,
+} from "@material-ui/core";
 import CustomTable from "../custom-table/CustomTable";
 import {
   CreateAutoComplete,
@@ -11,10 +18,18 @@ import {
 import SellerSelling from "../../models/SellerSelling";
 import Genre from "../../models/Genre";
 import Header from "../header/Header";
+import Dashboard from "./Dashboard/Dashboard";
 
 export class SellerSellingPage extends Component {
   state = {
     genres: [],
+    value: 0,
+  };
+
+  handleTabChange = (event, value) => {
+    this.setState({
+      value: value,
+    });
   };
   componentWillMount() {
     Genre.Get({}).then((res) => {
@@ -42,7 +57,19 @@ export class SellerSellingPage extends Component {
     return (
       <React.Fragment>
         <Header />
-        <Container>
+
+        <AppBar position="static">
+          <Tabs
+            style={{ backgroundColor: "black", color: "white" }}
+            value={this.state.value}
+            onChange={this.handleTabChange}
+            aria-label="simple tabs example"
+          >
+            <Tab label="Dashboard" />
+            <Tab label="Concerts" />
+          </Tabs>
+        </AppBar>
+        {this.state.value === 1 && (
           <Paper>
             <CustomTable
               model={SellerSelling}
@@ -53,7 +80,9 @@ export class SellerSellingPage extends Component {
               updateFormAttributes={updateFormAttributes}
             ></CustomTable>
           </Paper>
-        </Container>
+        )}
+
+        {this.state.value === 0 && <Dashboard />}
       </React.Fragment>
     );
   }

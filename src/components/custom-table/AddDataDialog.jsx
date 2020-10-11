@@ -133,7 +133,6 @@ export class AddDataDialog extends Component {
   };
 
   renderAutoComplete = (data) => {
-    console.log(data);
     return (
       <Autocomplete
         multiple={data.multiple === true}
