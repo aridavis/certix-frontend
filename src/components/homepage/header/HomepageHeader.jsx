@@ -13,6 +13,7 @@ import Menu from "@material-ui/core/Menu";
 import cookie from "react-cookies";
 import { Input, SwipeableDrawer, TextField } from "@material-ui/core";
 import NavigationDrawer from "../../navigation-drawer/NavigationDrawer";
+import User from "../../../models/User";
 export class HomepageHeader extends Component {
   state = {
     anchorEl: null,
@@ -48,6 +49,18 @@ export class HomepageHeader extends Component {
       drawerOpen: value,
     });
   }
+
+  logout = () => {
+    User.Logout()
+      .then((res) => {
+        cookie.remove("ACCESS_TOKEN");
+        window.location.href = "/login";
+      })
+      .catch((err) => {
+        cookie.remove("ACCESS_TOKEN");
+        window.location.href = "/login";
+      });
+  };
 
   render() {
     const { classes } = this.props;
@@ -102,8 +115,7 @@ export class HomepageHeader extends Component {
                   open={Boolean(this.state.anchorEl)}
                   onClose={this.handleClose}
                 >
-                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                  <MenuItem onClick={this.logout}>Logout</MenuItem>
                 </Menu>
               </div>
             )}
