@@ -17,8 +17,6 @@ import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import NavigationDrawer from "../navigation-drawer/NavigationDrawer";
 import User from "../../models/User";
 
-import { browserHistory } from "react-router-dom";
-
 export class HomepageHeader extends Component {
   state = {
     anchorEl: null,
@@ -65,6 +63,18 @@ export class HomepageHeader extends Component {
       });
     });
   }
+
+  logout = () => {
+    User.Logout()
+      .then((res) => {
+        cookie.remove("ACCESS_TOKEN");
+        window.location.href = "/login";
+      })
+      .catch((err) => {
+        cookie.remove("ACCESS_TOKEN");
+        window.location.href = "/login";
+      });
+  };
 
   render() {
     const { classes } = this.props;
@@ -155,8 +165,7 @@ export class HomepageHeader extends Component {
                   open={Boolean(this.state.anchorEl)}
                   onClose={this.handleClose}
                 >
-                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                  <MenuItem onClick={this.logout}>Logout</MenuItem>
                 </Menu>
               </div>
             )}
