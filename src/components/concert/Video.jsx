@@ -1,30 +1,39 @@
-import React, { Component } from "react";
-import { withStyles } from "@material-ui/core";
-import VideoPlayer from "react-video-js-player";
+import React, { useEffect, useState } from 'react'
 import ReactHlsPlayer from "react-hls-player";
 import Axios from "axios";
-export class Video extends Component {
-  componentDidMount() {}
+import Alternative from './Alternative'
 
-  render() {
-    const { classes } = this.props;
+function Video({ source }) {
+    const url = "https://rtmp.certix.suhanginta-hermanudin.xyz/" + source + ".m3u8"
+
+    const [available, setAvailable] = useState(true)
+
+    useEffect(() => {
+        Axios.get(url)
+        .catch(err => {
+            setAvailable(false)
+        })
+    }, [])
 
     return (
-      <ReactHlsPlayer
-        style={{ width: "100%", height: "800px" }}
-        url={
-          "https://rtmp.certix.suhanginta-hermanudin.xyz/" +
-          this.props.source +
-          ".m3u8"
-        }
-        autoplay={true}
-        controls={true}
-        width={500}
-        height={375}
-      />
-    );
-  }
+        <div style={{ width: "100%", height: "800px" }}>
+            { available &&
+                <ReactHlsPlayer
+                    style={{ width: '100%', height: '100%' }}
+                    url={url}
+                    autoplay={true}
+                    controls={true}
+                    width={500}
+                    height={375}
+                />
+            }
+            {
+                !available &&
+                    <Alternative/>
+            }
+            
+        </div>
+    )
 }
 
-const useStyles = (theme) => ({});
-export default withStyles(useStyles)(Video);
+export default Video
