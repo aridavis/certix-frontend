@@ -1,16 +1,28 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import singer from '../../assets/images/singer.jpg'
+import { Typography, Box } from "@material-ui/core";
 
 const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
+  jumbotron: {
+    background: `url(${singer})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    width: '100%',
+    height: '400px',
+    display: 'flex',
+    alignItems: 'center'
   },
+  header: {
+    color: 'white',
+  },
+  title: {
+    fontFamily: 'Equinox',
+    marginBottom: '10px'
+  },
+  subtitle: {
+    fontFamily: 'Gilmer'
+  }
 });
 
 function createData(name, start_time, end_time, price, url_video) {
@@ -28,15 +40,20 @@ const rows = [
 ];
 
 export default function History() {
+  const classes = useStyles()
 
   return (
-    <main>
-        <div className="top">
-            
-        </div>
-        <div className="bottom">
-            {}
-        </div>
-    </main>
+    <div className={classes.root}>
+      <Box className={classes.jumbotron}>
+        <Box className={classes.header} px={10}>
+          <Typography className={classes.title} variant="h2">
+            Your Concert History
+          </Typography>
+          <Typography className={classes.subtitle} variant="h4">
+            15 Concert(s) Watched
+          </Typography>
+        </Box>
+      </Box>
+    </div>
   );
 }
