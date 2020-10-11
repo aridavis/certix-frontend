@@ -54,7 +54,7 @@ function Concert({ match }) {
     const history = useHistory()
 
     useEffect(() => {
-        Con.Get(match.params.id)
+        Con.Show(match.params.id)
         .then(res => {
             if (!res.data) {
                 history.push('/')
@@ -141,6 +141,9 @@ function Concert({ match }) {
                 icon: 'success',
                 title: 'Ticket succesfully bought',
                 timer: 3000
+            })
+            .then(() => {
+              window.location.reload()  
             })
         })
     }
