@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import singer from '../../assets/images/singer.jpg'
 import Swal from "sweetalert2";
@@ -17,6 +17,7 @@ import {
 import StarIcon from '@material-ui/icons/Star';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarHalfIcon from '@material-ui/icons/StarHalf';
+import Concert from '../../models/Concert'
 
 const useStyles = makeStyles({
   jumbotron: {
@@ -76,6 +77,7 @@ const past = [
 ]
 
 function onClick(token) {
+  token = token.toString().replaceAll(',', '\n')
   const el = document.createElement('textarea');
   el.value = token;
   el.setAttribute('readonly', '');
@@ -88,7 +90,7 @@ function onClick(token) {
 
   Swal.fire({
     title: 'Token copied to clipboard',
-    html: `Your token is: <strong>${token}</strong><br>DO NOT show this token to anyone else!`,
+    html: `Your token is:<br/><strong>${token}</strong><br>DO NOT show this token(s) to strangers!`,
     timer: 2000,
   })
 }
@@ -97,7 +99,6 @@ function generateStar(rating) {
   const stars = []
   let temp = rating
   let count = 5
-  console.log('add')
   while(temp >= 1) {
     stars.push(<StarIcon/>)
     temp -= 1
@@ -117,6 +118,14 @@ function generateStar(rating) {
 
 export default function History() {
   const classes = useStyles()
+  const [history, setHistory] = useState(null)
+
+  useEffect(() => {
+    Concert.History()
+    .then(res => {
+      setHistory(res.data)
+    })
+  }, [])
 
   return (
     <div className={classes.root}>
@@ -132,7 +141,7 @@ export default function History() {
       </Box>
       <Box className={classes.historyContainer}>
         <Typography className={classes.category} variant="h5">
-          Upcoming Concert
+          Upcoming Concert Tickets
         </Typography>
         <TableContainer component={Paper} className={classes.tableContainer}>
           <Table className={classes.table} aria-label="simple table">
@@ -152,22 +161,26 @@ export default function History() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {upcoming.map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="center">{row.start_time}</TableCell>
-                  <TableCell align="center">{row.genre}</TableCell>
-                  <TableCell align="center">{row.price}</TableCell>
-                  <TableCell align="center"><Button variant="contained" onClick={() => onClick(row.token)}>Get Private Token</Button></TableCell>
-                </TableRow>
+              {history && history.upcoming.map((row) => (
+                row.ticket.map((t) => {
+                  return (
+                    <TableRow key={row.name}>
+                      <TableCell component="th" scope="row">
+                        {row.name}
+                      </TableCell>
+                      <TableCell align="center">{row.start_time}</TableCell>
+                      <TableCell align="center">{row.genre}</TableCell>
+                      <TableCell align="center">{row.price}</TableCell>
+                      <TableCell align="center"><Button variant="contained" onClick={() => onClick(t.tokens)}>Get Private Token</Button></TableCell>
+                    </TableRow>
+                  )
+                })
               ))}
             </TableBody>
           </Table>
         </TableContainer>
         <Typography className={classes.category} variant="h5">
-          Past Concert
+          Past Concert Tickets
         </Typography>
         <TableContainer component={Paper} className={classes.tableContainer}>
           <Table className={classes.table} aria-label="simple table">
@@ -188,17 +201,20 @@ export default function History() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {past.map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="center">{row.start_time}</TableCell>
-                  <TableCell align="center">{row.genre}</TableCell>
-                  <TableCell align="center">{row.price}</TableCell>
-                  <TableCell align="center">{generateStar(row.rating)}</TableCell>
-                </TableRow>
-              ))}
+              {history && history.past.map((row) => (
+                row.ticket.map((t) => {
+                  return (
+                    <TableRow key={row.name}>
+                      <TableCell component="th" scope="row">
+                        {row.name}
+                      </TableCell>
+                      <TableCell align="center">{row.start_time}</TableCell>
+                      <TableCell align="center">{row.genre}</TableCell>
+                      <TableCell align="center">{row.price}</TableCell>
+                      <TableCell align="center">{generateStar(5)}</TableCell>
+                    </TableRow>
+                  )})
+                ))}
             </TableBody>
           </Table>
         </TableContainer>

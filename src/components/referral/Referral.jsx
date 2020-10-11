@@ -71,26 +71,22 @@ const referrals = [
   createData('asd', '10.00', 'pop', 200000, 5, 'ccc'),
 ];
 
-function getToken(token) {
-  const el = document.createElement('textarea');
-  el.value = token;
-  el.setAttribute('readonly', '');
-  el.style.position = 'absolute';
-  el.style.left = '-9999px';
-  document.body.appendChild(el);
-  el.select();
-  document.execCommand('copy');
-  document.body.removeChild(el);
-
-  Swal.fire({
-    title: 'Token copied to clipboard',
-    html: `Your token is: <strong>${token}</strong><br>DO NOT show this token to anyone else!`,
-    timer: 2000,
-  })
-}
-
-function getReferral(token) {
-
+function getReferral(referral_id) {
+    const el = document.createElement('textarea');
+    el.value = referral_id;
+    el.setAttribute('readonly', '');
+    el.style.position = 'absolute';
+    el.style.left = '-9999px';
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+  
+    Swal.fire({
+      title: 'Token copied to clipboard',
+      html: `Your token is: <strong>${referral_id}</strong><br>DO NOT show this token to strangers!`,
+      timer: 2000,
+    })
 }
 
 export default function Referral() {
@@ -138,7 +134,7 @@ export default function Referral() {
                   <TableCell align="center">{row.genre}</TableCell>
                   <TableCell align="center">{row.price}</TableCell>
                   <TableCell align="center">{`${row.count} / 5`}</TableCell>
-                  { row.count < 5 && <TableCell align="center"><Button variant="contained" onClick={() => getReferral(row.token)}>Get Referral</Button></TableCell> }
+                  { row.count < 5 && <TableCell align="center"><Button variant="contained" onClick={() => getReferral(row.referral_id)}>Get Referral</Button></TableCell> }
                   { row.count == 5 && <TableCell align="center"><Typography className={classes.obtained}><Link to="/history" className={classes.history}><Button variant="contained" className={classes.historyButton}>Ticket History</Button></Link></Typography></TableCell> }
                 </TableRow>
               ))}
