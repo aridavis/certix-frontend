@@ -10,6 +10,7 @@ import {
   withStyles,
 } from "@material-ui/core";
 import image from "../../../assets/images/concert.jpg";
+import { Link } from "react-router-dom";
 
 export class Item extends Component {
   renderStreamerCard = () => {
@@ -61,9 +62,11 @@ export class Item extends Component {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary">
-            Book Now
-          </Button>
+          <Link to={this.props.type === "concert" ? "concert/" + data.id : "#"}>
+            <Button size="small" color="primary">
+              Watch
+            </Button>
+          </Link>
         </CardActions>
       </Card>
     );

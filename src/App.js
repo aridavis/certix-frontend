@@ -6,7 +6,7 @@ import History from "./components/history/History";
 import LoggedInRoute from "./components/routes/LoggedInRoute";
 import NotLoggedInRoute from "./components/routes/NotLoggedInRoute";
 import Homepage from "./components/homepage/Homepage.jsx";
-import { green, red, teal } from "@material-ui/core/colors";
+import { red, teal } from "@material-ui/core/colors";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
@@ -14,8 +14,8 @@ import ApplyStreamer from "./components/apply-streamer/ApplyStreamer";
 import SellerSelling from "./components/seller/SellerSellingPage";
 import Referral from "./components/referral/Referral";
 import Search from "./components/search/Search";
-import Concert from './components/concert/Concert'
-import './App.css';
+import Concert from "./components/concert/Concert";
+import "./App.css";
 
 const theme = createMuiTheme({
   palette: {
@@ -50,7 +50,7 @@ function App() {
             <LoggedInRoute exact path="/sellings" Component={SellerSelling} />
             <LoggedInRoute exact path="/referrals" Component={Referral} />
             <Route exact path="/search" component={Search} />
-            <Route exact path="/concert/:id" component={Concert}/>
+            <Route exact path="/concert/:id" component={Concert} />
           </Switch>
         </Router>
       </ThemeProvider>

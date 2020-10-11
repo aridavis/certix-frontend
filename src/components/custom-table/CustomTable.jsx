@@ -8,10 +8,8 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TablePagination,
   TableRow,
   TableSortLabel,
-  Toolbar,
   Typography,
   withStyles,
 } from "@material-ui/core";
