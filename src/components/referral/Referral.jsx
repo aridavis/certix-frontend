@@ -64,10 +64,6 @@ const useStyles = makeStyles({
   }
 });
 
-function createData(name, start_time, genre, price, count, referral_id) {
-  return { name, start_time, genre, price, count, referral_id };
-}
-
 function getReferral(referral_id) {
     const el = document.createElement('textarea');
     el.value = referral_id;

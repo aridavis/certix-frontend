@@ -6,6 +6,7 @@ import { TextField, Button } from "@material-ui/core";
 import Token from "../../models/Token";
 import cookie from "react-cookies";
 import Swal from "sweetalert2";
+import { useHistory } from "react-router";
 
 function Video({ source, start_time, id }) {
   const url =
@@ -13,6 +14,8 @@ function Video({ source, start_time, id }) {
 
   const [available, setAvailable] = useState(true);
   const [token, setToken] = useState("");
+  const [canWatch, setCanWatch] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     Axios.get(url).catch((err) => {
@@ -21,31 +24,46 @@ function Video({ source, start_time, id }) {
   }, []);
 
   useEffect(() => {
-    setInterval(() => {
-      console.log(cookie.load("WATCH_TOKEN"), token);
-      if (!cookie.load("WATCH_TOKEN") || token == "") {
-        return;
+    Axios.post(process.env.REACT_APP_API_URL + "/concerts/validation/session", {
+      cookie: cookie.load("WATCH_COOKIE"),
+      token: cookie.load("WATCH_TOKEN"),
+    }).then((res) => {
+      if (res.data === 1) {
+        setCanWatch(true);
       }
-
-      Axios.post(
-        process.env.REACT_APP_API_URL + "/concerts/validation/session",
-        {
-          cookie: cookie.load("WATCH_TOKEN"),
-          token,
-        }
-      ).then((res) => {
-        if (!res.data) {
-          Swal.fire("Warning", "Someone has used your token", "error");
-        }
-      });
-    }, 2000);
-  }, []);
+    });
+  });
 
   function validateToken() {
     Token.Validate({
       token,
     }).then((res) => {
-      cookie.save("WATCH_TOKEN", res.data, { path: "/concert/" + id });
+      setCanWatch(true);
+
+      cookie.save("WATCH_COOKIE", res.data, { path: "/concert/" + id });
+      cookie.save("WATCH_TOKEN", token, { path: "/concert/" + id });
+
+      setInterval(() => {
+        Axios.post(
+          process.env.REACT_APP_API_URL + "/concerts/validation/session",
+          {
+            cookie: cookie.load("WATCH_COOKIE"),
+
+            token,
+          }
+        ).then((res) => {
+          if (!res.data) {
+            Swal.fire({
+              title: "Warning",
+              html: `Someone has used your token`,
+              icon: "error",
+              timer: 2000,
+            }).then(() => {
+              history.push("/");
+            });
+          }
+        });
+      }, 2000);
     });
   }
 
@@ -53,32 +71,34 @@ function Video({ source, start_time, id }) {
     <>
       {
         // Date.now() > new Date(start_time) &&
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            margin: "30px 0",
-          }}
-        >
-          <TextField
-            id="filled-basic"
-            label="Enter concert token"
-            variant="outlined"
-            fontWeight="fontWeightBold"
-            onChange={(e) => setToken(e.target.value)}
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            style={{ color: "white" }}
-            onClick={validateToken}
+        !canWatch && (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              margin: "30px 0",
+            }}
           >
-            Use Token
-          </Button>
-        </div>
+            <TextField
+              id="filled-basic"
+              label="Enter concert token"
+              variant="outlined"
+              fontWeight="fontWeightBold"
+              onChange={(e) => setToken(e.target.value)}
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ color: "white" }}
+              onClick={validateToken}
+            >
+              Use Token
+            </Button>
+          </div>
+        )
       }
       <div style={{ width: "100%", height: "800px" }}>
-        {available && (
+        {available && canWatch && (
           <ReactHlsPlayer
             style={{ width: "100%", height: "100%" }}
             url={url}
@@ -86,6 +106,13 @@ function Video({ source, start_time, id }) {
             controls={true}
             width={500}
             height={375}
+          />
+        )}
+        {available && !canWatch && (
+          <Alternative
+            message={
+              "The concert has started! Please insert your token at the top of this page"
+            }
           />
         )}
         {!available && <Alternative message={"Concert has not been started"} />}
