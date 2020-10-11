@@ -55,28 +55,6 @@ const useStyles = makeStyles({
   }
 });
 
-function createData(name, start_time, genre, price, token) {
-  return { name, start_time, genre, price, token };
-}
-
-function createPastData(name, start_time, genre, price, rating) {
-  return {name, start_time, genre, price, rating}
-}
-
-const upcoming = [
-  createData('asd', '10.00', 'pop', 200000, 'aaa'),
-  createData('asd', '10.00', 'pop', 200000, 'bbb'),
-];
-
-const past = [
-  createPastData('asd', '10.00', 'pop', 200000, 4.0),
-  createPastData('asd', '10.00', 'pop', 200000, 3.5),
-  createPastData('asd', '10.00', 'pop', 200000, 4.0),
-  createPastData('asd', '10.00', 'pop', 200000, 3.5),
-  createPastData('asd', '10.00', 'pop', 200000, 4.0),
-  createPastData('asd', '10.00', 'pop', 200000, 3.5),
-]
-
 function onClick(token) {
   token = token.toString().replaceAll(',', '\n')
   const el = document.createElement('textarea');

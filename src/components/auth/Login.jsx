@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import cookie from "react-cookies";
 import concert from "../../assets/images/concert.jpg";
+import { browserHistory } from 'react-router-dom'
 
 import User from "../../models/User";
 export class Login extends Component {
@@ -32,7 +33,7 @@ export class Login extends Component {
         path: "/",
         expires: this.state.remember_me ? new Date(res.data.expires_at) : null,
       });
-      window.location.href = "/";
+      this.props.history.push('/')
     });
   };
 
