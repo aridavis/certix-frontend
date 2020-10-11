@@ -14,6 +14,9 @@ import {
   TableContainer,
   Button
 } from "@material-ui/core";
+import StarIcon from '@material-ui/icons/Star';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import StarHalfIcon from '@material-ui/icons/StarHalf';
 
 const useStyles = makeStyles({
   jumbotron: {
@@ -36,12 +39,17 @@ const useStyles = makeStyles({
     fontFamily: 'Gilmer'
   },
   tableContainer: {
-    marginTop: '40px',
     maxWidth: '80vw'
   },
   historyContainer: {
     display: 'flex',
-    justifyContent: 'center'
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  category: {
+    fontFamily: 'Equinox',
+    color: '#ffffff',
+    margin: '40px 0 40px 0'
   }
 });
 
@@ -49,15 +57,23 @@ function createData(name, start_time, genre, price, token) {
   return { name, start_time, genre, price, token };
 }
 
-const rows = [
-    createData('asd', '10.00', 'pop', 200000, 'aaa'),
-    createData('asd', '10.00', 'pop', 200000, 'bbb'),
-    createData('asd', '10.00', 'pop', 200000, 'ccc'),
-    createData('asd', '10.00', 'pop', 200000, 'ddd'),
-    createData('asd', '10.00', 'pop', 200000, 'eee'),
-    createData('asd', '10.00', 'pop', 200000, 'fff'),
-    createData('asd', '10.00', 'pop', 200000, 'ggg'),
+function createPastData(name, start_time, genre, price, rating) {
+  return {name, start_time, genre, price, rating}
+}
+
+const upcoming = [
+  createData('asd', '10.00', 'pop', 200000, 'aaa'),
+  createData('asd', '10.00', 'pop', 200000, 'bbb'),
 ];
+
+const past = [
+  createPastData('asd', '10.00', 'pop', 200000, 4.0),
+  createPastData('asd', '10.00', 'pop', 200000, 3.5),
+  createPastData('asd', '10.00', 'pop', 200000, 4.0),
+  createPastData('asd', '10.00', 'pop', 200000, 3.5),
+  createPastData('asd', '10.00', 'pop', 200000, 4.0),
+  createPastData('asd', '10.00', 'pop', 200000, 3.5),
+]
 
 function onClick(token) {
   const el = document.createElement('textarea');
@@ -77,6 +93,28 @@ function onClick(token) {
   })
 }
 
+function generateStar(rating) {
+  const stars = []
+  let temp = rating
+  let count = 5
+  console.log('add')
+  while(temp >= 1) {
+    stars.push(<StarIcon/>)
+    temp -= 1
+    count -= 1
+  }
+  if (temp > 0 && temp < 1) {
+    stars.push(<StarHalfIcon/>)
+    count -= 1
+  }
+  while(count > 0) {
+    stars.push(<StarBorderIcon/>)
+    count--
+  }
+
+  return stars
+}
+
 export default function History() {
   const classes = useStyles()
 
@@ -93,6 +131,9 @@ export default function History() {
         </Box>
       </Box>
       <Box className={classes.historyContainer}>
+        <Typography className={classes.category} variant="h5">
+          Upcoming Concert
+        </Typography>
         <TableContainer component={Paper} className={classes.tableContainer}>
           <Table className={classes.table} aria-label="simple table">
           <colgroup>
@@ -111,7 +152,7 @@ export default function History() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
+              {upcoming.map((row) => (
                 <TableRow key={row.name}>
                   <TableCell component="th" scope="row">
                     {row.name}
@@ -120,6 +161,42 @@ export default function History() {
                   <TableCell align="center">{row.genre}</TableCell>
                   <TableCell align="center">{row.price}</TableCell>
                   <TableCell align="center"><Button variant="contained" onClick={() => onClick(row.token)}>Get Private Token</Button></TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <Typography className={classes.category} variant="h5">
+          Past Concert
+        </Typography>
+        <TableContainer component={Paper} className={classes.tableContainer}>
+          <Table className={classes.table} aria-label="simple table">
+          <colgroup>
+              <col width="30%" />
+              <col width="30%" />
+              <col width="10%" />
+              <col width="10%" />
+              <col width="20%" />
+          </colgroup>
+            <TableHead>
+              <TableRow>
+                <TableCell>Concert Name</TableCell>
+                <TableCell align="center">Start Time</TableCell>
+                <TableCell align="center">Genre</TableCell>
+                <TableCell align="center">Price</TableCell> 
+                <TableCell align="center">Rating</TableCell> 
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {past.map((row) => (
+                <TableRow key={row.name}>
+                  <TableCell component="th" scope="row">
+                    {row.name}
+                  </TableCell>
+                  <TableCell align="center">{row.start_time}</TableCell>
+                  <TableCell align="center">{row.genre}</TableCell>
+                  <TableCell align="center">{row.price}</TableCell>
+                  <TableCell align="center">{generateStar(row.rating)}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
