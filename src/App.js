@@ -21,6 +21,9 @@ const theme = createMuiTheme({
     secondary: {
       main: red[400],
     },
+    typography: {
+      fontFamily: ["Gilmer"],
+    },
   },
 });
 

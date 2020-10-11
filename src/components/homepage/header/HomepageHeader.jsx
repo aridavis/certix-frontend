@@ -6,9 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import Switch from "@material-ui/core/Switch";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormGroup from "@material-ui/core/FormGroup";
+import search from "../../../assets/images/search.jpg";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 
@@ -48,7 +46,7 @@ export class HomepageHeader extends Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="static" className={classes.appBar}>
           <Toolbar>
             <IconButton
               className={classes.title}
@@ -105,7 +103,7 @@ export class HomepageHeader extends Component {
               <TextField
                 fullWidth
                 value={this.state.search}
-                color="secondary"
+                color="primary"
                 className={classes.textField}
                 label="Search Concert / Streamer"
                 type="text"
@@ -125,6 +123,12 @@ export class HomepageHeader extends Component {
 }
 
 const useStyles = (theme) => ({
+  appBar: {
+    backgroundImage: `url(${search})`,
+    backgroundSize: "cover",
+    backgroundPositionY: "calc(80vw - 100vw)",
+    padding: theme.spacing(2),
+  },
   root: {
     flexGrow: 1,
   },
