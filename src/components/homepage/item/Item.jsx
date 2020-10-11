@@ -12,6 +12,18 @@ import {
 import image from "../../../assets/images/concert.jpg";
 import { Link } from "react-router-dom";
 
+const randomedStreamer = [
+  "https://source.unsplash.com/1600x900?singer",
+  "https://source.unsplash.com/1600x900?vocalist",
+  "https://source.unsplash.com/1600x900?band",
+  "https://source.unsplash.com/1600x900?concert",
+  "https://source.unsplash.com/1600x900?orchestra",
+  "https://source.unsplash.com/1600x900?violin",
+  "https://source.unsplash.com/1600x900?music",
+  "https://source.unsplash.com/1600x900?church",
+  "https://source.unsplash.com/1600x900?jazz",
+];
+
 export class Item extends Component {
   renderStreamerCard = () => {
     const { classes, data } = this.props;
@@ -20,7 +32,11 @@ export class Item extends Component {
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image="https://www.rollingstone.com/wp-content/uploads/2020/03/ConcertCrowd.jpg"
+            image={
+              randomedStreamer[
+                Math.floor(Math.random() * randomedStreamer.length)
+              ]
+            }
             title="Contemplative Reptile"
           />
           <CardContent>
@@ -46,7 +62,11 @@ export class Item extends Component {
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image="https://i.guim.co.uk/img/media/ad98f2dc808f18131e35e59c05ba6212671e8227/94_0_3061_1838/master/3061.jpg?width=620&quality=85&auto=format&fit=max&s=b72df2817ace7d67acf0a1ff9c218a03"
+            image={
+              randomedStreamer[
+                Math.floor(Math.random() * randomedStreamer.length)
+              ]
+            }
             title="Contemplative Reptile"
           />
           <CardContent>
