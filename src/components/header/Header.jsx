@@ -25,6 +25,7 @@ export class HomepageHeader extends Component {
     search: this.props.text !== undefined ? this.props.text : "",
     drawerOpen: false,
     wallet: "0",
+    name: "",
   };
 
   handleMenu = (event) => {
@@ -57,11 +58,16 @@ export class HomepageHeader extends Component {
   }
 
   componentWillMount() {
+    ApiClient.Get("/profile").then((res) => {
+      this.setState({
+        name: res.data.name,
+      });
+    });
     this.refreshWallet();
   }
 
   refreshWallet = () => {
-    cookie.load("ACCESS_TOKEN") !== undefined &&
+    if (cookie.load("ACCESS_TOKEN") !== undefined) {
       User.Wallet().then((res) => {
         this.setState({
           wallet: res.data.balance
@@ -69,6 +75,7 @@ export class HomepageHeader extends Component {
             .replace(/\B(?=(\d{3})+(?!\d))/g, "."),
         });
       });
+    }
   };
 
   logout = () => {
@@ -161,6 +168,7 @@ export class HomepageHeader extends Component {
             <div className={classes.grow}></div>
             {cookie.load("ACCESS_TOKEN") !== undefined && (
               <div>
+                <span style={{ color: "white" }}>{this.state.name}</span>
                 <IconButton
                   aria-label="account of current user"
                   aria-controls="menu-appbar"
@@ -182,7 +190,6 @@ export class HomepageHeader extends Component {
                 >
                   <AccountCircle />
                 </IconButton>
-
                 <Menu
                   id="menu-appbar"
                   anchorEl={this.state.anchorEl}
