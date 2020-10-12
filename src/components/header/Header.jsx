@@ -58,11 +58,6 @@ export class HomepageHeader extends Component {
   }
 
   componentWillMount() {
-    ApiClient.Get("/profile").then((res) => {
-      this.setState({
-        name: res.data.name,
-      });
-    });
     this.refreshWallet();
   }
 
@@ -73,6 +68,11 @@ export class HomepageHeader extends Component {
           wallet: res.data.balance
             .toString()
             .replace(/\B(?=(\d{3})+(?!\d))/g, "."),
+        });
+      });
+      ApiClient.Get("/profile").then((res) => {
+        this.setState({
+          name: res.data.name,
         });
       });
     }
